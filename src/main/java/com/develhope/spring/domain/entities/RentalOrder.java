@@ -1,5 +1,6 @@
 package com.develhope.spring.domain.entities;
 
+import com.develhope.spring.domain.entities.users.User;
 import com.develhope.spring.domain.entities.vehicles.VehicleForRental;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -35,10 +35,8 @@ public class RentalOrder {
     @JoinColumn(name = "vehicle_id")
     private VehicleForRental vehicle;
 
-    @PostLoad
-    private void postLoad() {
-        this.totalPrice = vehicle.getHourlyPrice().multiply(BigDecimal.valueOf(ChronoUnit.HOURS.between(start,end)));
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private User customer;
 
 }

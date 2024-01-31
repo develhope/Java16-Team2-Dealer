@@ -27,6 +27,7 @@ public class VehicleForSale extends VehicleEntity{
 
     private Boolean isNew;
 
+    @Enumerated(EnumType.STRING)
     private StatusSale status;
 
 }

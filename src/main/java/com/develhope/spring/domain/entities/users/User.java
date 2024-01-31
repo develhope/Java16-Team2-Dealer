@@ -1,16 +1,23 @@
 package com.develhope.spring.domain.entities.users;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import com.develhope.spring.domain.entities.enums.UserRole;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
+@Builder
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
@@ -26,4 +33,8 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(unique = true, nullable = false)
+    private UserRole role;
 }
