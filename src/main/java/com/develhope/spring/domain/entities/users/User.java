@@ -1,22 +1,16 @@
-package com.develhope.spring.domain.entities;
+package com.develhope.spring.domain.entities.users;
 
-import com.develhope.spring.domain.UserType;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "users")
-public class UserEntity {
-
-    @Id
-    private Long id;
+@MappedSuperclass
+public class User {
 
     @Column(nullable = false)
     private String nome;
@@ -25,18 +19,11 @@ public class UserEntity {
     private String cognome;
 
     @Column(unique = true, nullable = false)
-    private String numetoTelefono;
+    private String numeroTelefono;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(unique = true, nullable = false)
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserType userType;
-
-
-
 }

@@ -1,6 +1,6 @@
-package com.develhope.spring.domain.entities;
+package com.develhope.spring.domain.entities.vehicles;
 
-import com.develhope.spring.domain.StatusRental;
+import com.develhope.spring.domain.entities.enums.StatusRental;
 import jakarta.persistence.*;
 import lombok.*;
 

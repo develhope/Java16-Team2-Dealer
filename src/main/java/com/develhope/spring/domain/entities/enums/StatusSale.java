@@ -1,4 +1,4 @@
-package com.develhope.spring.domain;
+package com.develhope.spring.domain.entities.enums;
 
 public enum StatusSale {
 
