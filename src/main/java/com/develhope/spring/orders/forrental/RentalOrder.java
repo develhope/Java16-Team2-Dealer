@@ -1,15 +1,16 @@
-package com.develhope.spring.domain.entities;
+package com.develhope.spring.orders.forrental;
 
+import com.develhope.spring.orders.StatusPayment;
+import com.develhope.spring.user.User;
+import com.develhope.spring.vehicle.forrental.VehicleForRental;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -29,16 +30,27 @@ public class RentalOrder {
     @Column(nullable = false)
     private LocalDateTime end;
 
+    @Column(nullable = false)
     private BigDecimal totalPrice;
+
+    private BigDecimal downPayment;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusPayment statusPayment;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleForRental vehicle;
 
-    @PostLoad
-    private void postLoad() {
-        this.totalPrice = vehicle.getHourlyPrice().multiply(BigDecimal.valueOf(ChronoUnit.HOURS.between(start,end)));
-    }
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private User customer;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User seller;
+
 
 
 }

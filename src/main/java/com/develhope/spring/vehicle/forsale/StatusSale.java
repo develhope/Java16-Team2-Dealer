@@ -1,4 +1,4 @@
-package com.develhope.spring.domain;
+package com.develhope.spring.vehicle.forsale;
 
 public enum StatusSale {
 

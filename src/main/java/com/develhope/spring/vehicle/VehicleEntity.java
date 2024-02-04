@@ -1,11 +1,7 @@
-package com.develhope.spring.domain.entities;
+package com.develhope.spring.vehicle;
 
-import com.develhope.spring.domain.Engine;
-import com.develhope.spring.domain.Transmission;
-import com.develhope.spring.domain.VehicleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
