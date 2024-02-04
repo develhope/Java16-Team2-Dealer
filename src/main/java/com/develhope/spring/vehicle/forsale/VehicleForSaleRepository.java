@@ -1,6 +1,5 @@
-package com.develhope.spring.repositories;
+package com.develhope.spring.vehicle.forsale;
 
-import com.develhope.spring.domain.entities.vehicles.VehicleForSale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

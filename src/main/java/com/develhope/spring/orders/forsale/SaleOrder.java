@@ -1,9 +1,8 @@
-package com.develhope.spring.domain.entities.orders;
+package com.develhope.spring.orders.forsale;
 
-import com.develhope.spring.domain.entities.enums.StatusPayment;
-import com.develhope.spring.domain.entities.users.User;
-import com.develhope.spring.domain.entities.vehicles.VehicleForRental;
-import com.develhope.spring.domain.entities.vehicles.VehicleForSale;
+import com.develhope.spring.orders.StatusPayment;
+import com.develhope.spring.user.User;
+import com.develhope.spring.vehicle.forsale.VehicleForSale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

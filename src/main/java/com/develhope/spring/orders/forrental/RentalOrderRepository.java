@@ -1,6 +1,5 @@
-package com.develhope.spring.repositories;
+package com.develhope.spring.orders.forrental;
 
-import com.develhope.spring.domain.entities.orders.RentalOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

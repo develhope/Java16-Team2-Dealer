@@ -1,4 +1,4 @@
-package com.develhope.spring.domain.entities.enums;
+package com.develhope.spring.vehicle.forrental;
 
 public enum StatusRental {
 

@@ -1,7 +1,5 @@
-package com.develhope.spring.repositories;
+package com.develhope.spring.user;
 
-import com.develhope.spring.domain.entities.users.User;
-import org.hibernate.query.criteria.JpaDerivedRoot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

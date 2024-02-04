@@ -1,6 +1,6 @@
-package com.develhope.spring.domain.entities.vehicles;
+package com.develhope.spring.vehicle.forsale;
 
-import com.develhope.spring.domain.entities.enums.StatusSale;
+import com.develhope.spring.vehicle.VehicleEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table(name = "Vehicle for Sale")
-public class VehicleForSale extends VehicleEntity{
+public class VehicleForSale extends VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
