@@ -51,5 +51,21 @@ public class UserService {
         return userEntities.stream().map(UserEntity::toDto).toList();
     }
 
+    ResponseEntity<UserResponse> deleteUserById(Long id) {
+        boolean userExist = userRepository.existsById(id);
+        if (userExist) {
+            userRepository.deleteById(id);
+            UserResponse.UserDeletedSuccessfully response =
+                    new UserResponse.UserDeletedSuccessfully("User successfully deleted.");
+
+            return UserResponse.mapResponseEntity(response);
+        } else {
+            UserResponse.UserGenericError response =
+                    new UserResponse.UserGenericError("Error while deleting user with ID: " + id);
+
+            return UserResponse.mapResponseEntity(response);
+        }
+    }
+
 
 }

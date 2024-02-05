@@ -27,6 +27,18 @@ public class UserResponse {
         }
     }
 
+    static class UserDeletedSuccessfully extends UserResponse {
+        public UserDeletedSuccessfully(String statusDescription) {
+            super(statusDescription, HttpStatus.NO_CONTENT.value());
+        }
+    }
+
+    static class UserGenericError extends UserResponse {
+        public UserGenericError(String statusDescription) {
+            super(statusDescription, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
 
 
 }
