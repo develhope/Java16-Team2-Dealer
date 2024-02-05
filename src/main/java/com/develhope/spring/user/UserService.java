@@ -66,5 +66,27 @@ public class UserService {
         }
     }
 
+    public UserDTO updateUser (Long id, UserDTO newUser) {
+        if(userRepository.existsById(id))
+        {
+            UserEntity user = userRepository.getById(id);
+
+            user.setId(newUser.getId());
+            user.setCognome(newUser.getCognome());
+            user.setNome(newUser.getNome());
+            user.setEmail(newUser.getEmail());
+            user.setNumeroTelefono(newUser.getNumeroTelefono());
+            user.setPassword(newUser.getPassword());
+            user.setRole(newUser.getRole());
+
+            userRepository.saveAndFlush(user);
+
+            return user.toDto();
+        }
+        return new UserDTO();
+    }
+
+
+
 
 }
