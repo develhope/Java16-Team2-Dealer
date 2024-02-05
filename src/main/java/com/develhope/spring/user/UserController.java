@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("getSingle/{id}")
+    @GetMapping("/getSingle/{id}")
     public ResponseEntity<Optional<UserDTO>> getUserById(@PathVariable long id) {
         Optional<UserDTO> userSearched = userService.getUserById(id);
         if(userSearched.isPresent()) {
@@ -38,6 +38,21 @@ public class UserController {
         } else {
             return new ResponseEntity<>(userSearched, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/getAdmins")
+    public ResponseEntity<List<UserDTO>> getAllAdmins() {
+        return new ResponseEntity<>(userService.getAllAdmins(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getCustomers")
+    public ResponseEntity<List<UserDTO>> getAllCustomers() {
+        return new ResponseEntity<>(userService.getAllCustomers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getSellers")
+    public ResponseEntity<List<UserDTO>> getAllSellers() {
+        return new ResponseEntity<>(userService.getAllSellers(), HttpStatus.OK);
     }
 
 

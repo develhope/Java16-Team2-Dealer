@@ -21,6 +21,7 @@ public class UserService {
     public UserDTO addUser(UserDTO user) {
 
         UserEntity userEntityToSave = user.toEntity();
+
         UserEntity userSaved = userRepository.saveAndFlush(userEntityToSave);
         return userSaved.toDto();
     }
@@ -33,6 +34,21 @@ public class UserService {
     public Optional<UserDTO> getUserById(Long id) {
         Optional<UserEntity> userSearched = userRepository.findById(id);
         return userSearched.map(UserEntity::toDto);
+    }
+
+    public List<UserDTO> getAllAdmins() {
+        List<UserEntity> userEntities = userRepository.findUsersByRole(UserRole.ADMIN.toString());
+        return userEntities.stream().map(UserEntity::toDto).toList();
+    }
+
+    public List<UserDTO> getAllSellers() {
+        List<UserEntity> userEntities = userRepository.findUsersByRole(UserRole.SELLER.toString());
+        return userEntities.stream().map(UserEntity::toDto).toList();
+    }
+
+    public List<UserDTO> getAllCustomers() {
+        List<UserEntity> userEntities = userRepository.findUsersByRole(UserRole.CUSTOMER.toString());
+        return userEntities.stream().map(UserEntity::toDto).toList();
     }
 
 
