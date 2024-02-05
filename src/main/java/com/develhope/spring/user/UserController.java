@@ -2,6 +2,7 @@ package com.develhope.spring.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path = "/create")
-    public ResponseEntity<User> addUser(@RequestBody UserDTO user) {
-        return userService.addUser(user);
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO user) {
+        UserDTO savedUser = userService.addUser(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 }

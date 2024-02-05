@@ -1,7 +1,7 @@
 package com.develhope.spring.orders.forsale;
 
 import com.develhope.spring.orders.StatusPayment;
-import com.develhope.spring.user.User;
+import com.develhope.spring.user.UserEntity;
 import com.develhope.spring.vehicle.forsale.VehicleForSale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,9 +42,9 @@ public class SaleOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private User customer;
+    private UserEntity customer;
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private User seller;
+    private UserEntity seller;
 }
