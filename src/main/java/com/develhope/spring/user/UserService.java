@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,6 +28,11 @@ public class UserService {
     public List<UserDTO> getAllUsers() {
         List<UserEntity> userEntities = userRepository.findAll();
         return userEntities.stream().map(UserEntity::toDto).toList();
+    }
+
+    public Optional<UserDTO> getUserById(Long id) {
+        Optional<UserEntity> userSearched = userRepository.findById(id);
+        return userSearched.map(UserEntity::toDto);
     }
 
 

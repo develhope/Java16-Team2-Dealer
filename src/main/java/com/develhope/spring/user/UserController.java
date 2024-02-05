@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -29,6 +30,15 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("getSingle/{id}")
+    public ResponseEntity<Optional<UserDTO>> getUserById(@PathVariable long id) {
+        Optional<UserDTO> userSearched = userService.getUserById(id);
+        if(userSearched.isPresent()) {
+            return new ResponseEntity<>(userSearched, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userSearched, HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }
