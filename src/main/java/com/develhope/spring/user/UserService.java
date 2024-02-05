@@ -5,23 +5,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
-    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
     }
 
     private UserRepository userRepository;
 
-    private ModelMapper modelMapper;
+
 
     public UserDTO addUser(UserDTO user) {
 
-        UserEntity userEntityToSave = modelMapper.map(user, UserEntity.class);
+        UserEntity userEntityToSave = user.toEntity();
         UserEntity userSaved = userRepository.saveAndFlush(userEntityToSave);
-        return modelMapper.map(userSaved, UserDTO.class);
+        return userSaved.toDto();
     }
+
+//    public List<UserDTO> getAllUsers() {
+//        List<UserEntity> userEntities = userRepository.findAll();
+//
+//    }
 
 
 }

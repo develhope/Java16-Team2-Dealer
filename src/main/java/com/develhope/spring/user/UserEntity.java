@@ -36,4 +36,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
+
+    public UserDTO toDto() {
+        return new UserDTO(this.id, this.nome, this.cognome, this.numeroTelefono, this. email, this.password,
+                this.role);
+    }
 }
