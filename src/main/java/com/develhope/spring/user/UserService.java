@@ -7,17 +7,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
+
     private UserRepository userRepository;
 
+    private ModelMapper modelMapper;
+
     public UserDTO addUser(UserDTO user) {
-        ModelMapper modelMapper = new ModelMapper();
 
         UserEntity userEntityToSave = modelMapper.map(user, UserEntity.class);
         UserEntity userSaved = userRepository.saveAndFlush(userEntityToSave);
         return modelMapper.map(userSaved, UserDTO.class);
-
     }
+
+
 }
