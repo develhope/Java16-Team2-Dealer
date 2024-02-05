@@ -24,10 +24,10 @@ public class UserService {
         return userSaved.toDto();
     }
 
-//    public List<UserDTO> getAllUsers() {
-//        List<UserEntity> userEntities = userRepository.findAll();
-//
-//    }
+    public List<UserDTO> getAllUsers() {
+        List<UserEntity> userEntities = userRepository.findAll();
+        return userEntities.stream().map(UserEntity::toDto).toList();
+    }
 
 
 }
