@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class VehicleForSaleDTO extends VehicleDTO {
 
     private Long id;
@@ -28,16 +28,30 @@ public class VehicleForSaleDTO extends VehicleDTO {
 
     private StatusSale status;
 
-    @Override
-    public VehicleEntity toEntity() {
-        return super.toEntity();
+
+    public VehicleForSale toEntity() {
+
+        VehicleForSale vehicleForSale = VehicleForSale.builder()
+                .licensePlate(this.getLicensePlate())
+                .brand(this.getBrand())
+                .model(this.getModel())
+                .displacement(this.getDisplacement())
+                .color(this.getColor())
+                .power(this.getPower())
+                .transmission(this.getTransmission())
+                .registrationYear(this.getRegistrationYear())
+                .engine(this.getEngine())
+                .type(this.getType())
+                .id(this.id)
+                .listPrice(this.listPrice)
+                .discountPercentage(this.discountPercentage)
+                .optionals(this.optionals)
+                .isNew(this.isNew)
+                .status(this.status)
+                .build();
+        return vehicleForSale;
     }
 
-    /*@Override
-    public VehicleForSale toEntity() {
-        return new VehicleForSale(this.id, this.listPrice, this.discountPercentage, this.optionals, this.isNew, this.status,
-                this.getLicensePlate(), this.getBrand(), this.getModel(), this.getDisplacement(), this.getColor(),
-                this.getPower(), this.getTransmission(), this.getRegistrationYear(), this.getEngine(), this.getType());
-    }*/
+
 
 }

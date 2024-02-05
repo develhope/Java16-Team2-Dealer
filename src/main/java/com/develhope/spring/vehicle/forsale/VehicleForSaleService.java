@@ -1,5 +1,7 @@
 package com.develhope.spring.vehicle.forsale;
 
+import com.develhope.spring.user.UserDTO;
+import com.develhope.spring.user.UserEntity;
 import com.develhope.spring.user.UserRepository;
 import com.develhope.spring.vehicle.VehicleDTO;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,12 @@ public class VehicleForSaleService {
 
     private VehicleForSaleRepository vehicleForSaleRepository;
 
-    public VehicleDTO addVehicleForSale(VehicleDTO vehicle) {
-        VehicleForSale vehicleForSale = vehicle.toEntity();
+    public VehicleForSaleDTO addVehicleForSale(VehicleForSaleDTO vehicleForSaleDTO) {
+        VehicleForSale vehicleForSaleToSave = vehicleForSaleDTO.toEntity();
+        VehicleForSale vehicleSaved = vehicleForSaleRepository.saveAndFlush(vehicleForSaleToSave);
+        return vehicleSaved.toDTO();
     }
+
+
+
 }

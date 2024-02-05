@@ -2,8 +2,10 @@ package com.develhope.spring.vehicle;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Year;
 
@@ -11,7 +13,7 @@ import java.time.Year;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-
+@SuperBuilder
 public class VehicleEntity {
 
     @Column(unique = true, nullable = false)

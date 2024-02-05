@@ -15,7 +15,7 @@ public class UserResponse {
 
     String statusDescription;
 
-    Integer statusCode;
+    int statusCode;
 
 
     public static ResponseEntity<UserResponse> mapResponseEntity(UserResponse response) {

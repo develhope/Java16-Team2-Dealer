@@ -3,6 +3,7 @@ package com.develhope.spring.vehicle.forsale;
 import com.develhope.spring.vehicle.VehicleEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "Vehicle for Sale")
 public class VehicleForSale extends VehicleEntity {
@@ -29,5 +30,31 @@ public class VehicleForSale extends VehicleEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusSale status;
+
+    public VehicleForSaleDTO toDTO() {
+        VehicleForSaleDTO vehicleForSaleDTO = VehicleForSaleDTO.builder()
+                .licensePlate(this.getLicensePlate())
+                .brand(this.getBrand())
+                .model(this.getModel())
+                .displacement(this.getDisplacement())
+                .color(this.getColor())
+                .power(this.getPower())
+                .transmission(this.getTransmission())
+                .registrationYear(this.getRegistrationYear())
+                .engine(this.getEngine())
+                .type(this.getType())
+                .id(this.id)
+                .listPrice(this.listPrice)
+                .discountPercentage(this.discountPercentage)
+                .optionals(this.optionals)
+                .isNew(this.isNew)
+                .status(this.status)
+                .build();
+
+        return vehicleForSaleDTO;
+
+    }
+
+
 
 }

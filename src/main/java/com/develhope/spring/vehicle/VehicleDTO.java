@@ -14,7 +14,7 @@ import java.time.Year;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class VehicleDTO {
 
     private String licensePlate;
