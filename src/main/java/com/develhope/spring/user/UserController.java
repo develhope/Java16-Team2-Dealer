@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/users")
 public class UserController {
 
-    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     private UserService userService;
 
     @PostMapping(path = "/create")
