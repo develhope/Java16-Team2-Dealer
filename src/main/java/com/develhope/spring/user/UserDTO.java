@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserDTO {
+
+    private Long id;
+
     private String nome;
 
     private String cognome;
@@ -22,4 +25,9 @@ public class UserDTO {
     private String password;
 
     private UserRole role;
+
+    public UserEntity toEntity() {
+        return new UserEntity(this.id, this.nome, this.cognome, this.numeroTelefono, this. email, this.password,
+                this.role);
+    }
 }

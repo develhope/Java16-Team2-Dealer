@@ -1,23 +1,21 @@
 package com.develhope.spring.vehicle.forsale;
 
+import com.develhope.spring.vehicle.VehicleDTO;
 import com.develhope.spring.vehicle.VehicleEntity;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
+
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Entity
-@Table(name = "Vehicle for Sale")
-public class VehicleForSale extends VehicleEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VehicleForSaleDTO extends VehicleDTO {
+
     private Long id;
 
     private BigDecimal listPrice;
@@ -28,11 +26,12 @@ public class VehicleForSale extends VehicleEntity {
 
     private Boolean isNew;
 
-    @Enumerated(EnumType.STRING)
     private StatusSale status;
 
-    public VehicleForSaleDTO toDTO() {
-        VehicleForSaleDTO vehicleForSaleDTO = VehicleForSaleDTO.builder()
+
+    public VehicleForSale toEntity() {
+
+        VehicleForSale vehicleForSale = VehicleForSale.builder()
                 .licensePlate(this.getLicensePlate())
                 .brand(this.getBrand())
                 .model(this.getModel())
@@ -50,9 +49,7 @@ public class VehicleForSale extends VehicleEntity {
                 .isNew(this.isNew)
                 .status(this.status)
                 .build();
-
-        return vehicleForSaleDTO;
-
+        return vehicleForSale;
     }
 
 

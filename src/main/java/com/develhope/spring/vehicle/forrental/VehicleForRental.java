@@ -3,6 +3,7 @@ package com.develhope.spring.vehicle.forrental;
 import com.develhope.spring.vehicle.VehicleEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "Vehicle for Rental")
 public class VehicleForRental extends VehicleEntity {

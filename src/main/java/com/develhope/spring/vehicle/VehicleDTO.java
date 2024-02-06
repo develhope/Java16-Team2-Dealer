@@ -1,6 +1,7 @@
 package com.develhope.spring.vehicle;
 
-import jakarta.persistence.*;
+import com.develhope.spring.user.UserEntity;
+import com.develhope.spring.vehicle.forsale.VehicleForSale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,14 +10,13 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.Year;
 
+@SuperBuilder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
-@SuperBuilder
-public class VehicleEntity {
 
-    @Column(unique = true, nullable = false)
+public class VehicleDTO {
+
     private String licensePlate;
 
     private String brand;
@@ -29,15 +29,16 @@ public class VehicleEntity {
 
     private double power;
 
-    @Enumerated(EnumType.STRING)
     private Transmission transmission;
 
     private Year registrationYear;
 
-    @Enumerated(EnumType.STRING)
     private Engine engine;
 
-    @Enumerated(EnumType.STRING)
     private VehicleType type;
 
+    public VehicleEntity toEntity() {
+        return new VehicleEntity(this.licensePlate, this.brand, this.model, this.displacement, this.color,
+                this.power, this.transmission, this.registrationYear, this.engine, this.type);
+    }
 }
