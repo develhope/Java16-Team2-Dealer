@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @SuperBuilder
 @Entity
 @Table(name = "Vehicle for Rental")
-public class VehicleForRental extends VehicleEntity {
+public class VehicleForRentalEntity extends VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,12 +2,12 @@ package com.develhope.spring.orders.forrental;
 
 import com.develhope.spring.orders.StatusPayment;
 import com.develhope.spring.user.UserEntity;
-import com.develhope.spring.vehicle.forrental.VehicleForRental;
+import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table
 public class RentalOrder {
@@ -30,9 +30,12 @@ public class RentalOrder {
     @Column(nullable = false)
     private LocalDateTime end;
 
+//@Column(nullable = false)
+    //   private BigDecimal dailyPrice;
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
+    // cos è??
     private BigDecimal downPayment;
 
     @Column(nullable = false)
@@ -41,7 +44,7 @@ public class RentalOrder {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private VehicleForRental vehicle;
+    private VehicleForRentalEntity vehicle;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -51,6 +54,11 @@ public class RentalOrder {
     @JoinColumn(name = "seller_id")
     private UserEntity seller;
 
+public RentalOrderDTO toDto(){
+    return new RentalOrderDTO(
+            this.id, this.start, this.end, this.totalPrice,
+            this.downPayment, this.statusPayment, this.vehicle, this.customer, this.seller);
 
+}
 
 }
