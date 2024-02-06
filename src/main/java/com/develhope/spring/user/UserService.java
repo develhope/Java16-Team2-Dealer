@@ -79,7 +79,10 @@ public class UserService {
             user.setPassword(newUser.getPassword());
             user.setRole(newUser.getRole());
 
+            //ritornare il dto che viene dalla entity risultato di save and flush, magari un optional nel caso l'id cercato non esista
+            //con codice di errore 404 o altro
             userRepository.saveAndFlush(user);
+
 
             return user.toDto();
         }
