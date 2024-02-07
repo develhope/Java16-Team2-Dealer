@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "Vehicle for Rental")
+@Table(name = "vehicle_for_rental")
 public class VehicleForRentalEntity extends VehicleEntity {
 
     @Id
