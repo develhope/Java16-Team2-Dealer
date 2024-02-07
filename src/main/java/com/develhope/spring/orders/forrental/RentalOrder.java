@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,17 +26,15 @@ public class RentalOrder {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(nullable = false)
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
-    //@Column(nullable = false)
-    //   private BigDecimal dailyPrice;
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
-    // cos è??
+    //acconto
     private BigDecimal downPayment;
 
     @Column(nullable = false)
