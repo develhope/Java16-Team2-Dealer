@@ -5,8 +5,10 @@ import com.develhope.spring.user.UserEntity;
 import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,8 +19,8 @@ import java.time.LocalDate;
 
 public class RentalOrderDTO {
     private Long id;
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private BigDecimal dailyPrice;
     private BigDecimal totalPrice;
     private StatusPayment statusPayment;
@@ -26,15 +28,15 @@ public class RentalOrderDTO {
     private UserEntity customer;
     private UserEntity seller;
 
-    public RentalOrder toEntity(){
+    public RentalOrder toEntity() {
         return new RentalOrder(this.id,
-                this.start,
-        this.end,
-        this.dailyPrice,
-        this.totalPrice,
-        this.statusPayment,
-        this.vehicle,
-        this.customer, this.seller);
+                this.startDate,
+                this.endDate,
+                this.dailyPrice,
+                this.totalPrice,
+                this.statusPayment,
+                this.vehicle,
+                this.customer, this.seller);
     }
 
 }

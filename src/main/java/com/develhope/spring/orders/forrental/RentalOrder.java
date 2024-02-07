@@ -25,12 +25,12 @@ public class RentalOrder {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime start;
+    private LocalDateTime startDate;
 
     @Column(nullable = false)
-    private LocalDateTime end;
+    private LocalDateTime endDate;
 
-//@Column(nullable = false)
+    //@Column(nullable = false)
     //   private BigDecimal dailyPrice;
     @Column(nullable = false)
     private BigDecimal totalPrice;
@@ -54,11 +54,18 @@ public class RentalOrder {
     @JoinColumn(name = "seller_id")
     private UserEntity seller;
 
-public RentalOrderDTO toDto(){
-    return new RentalOrderDTO(
-            this.id, this.start, this.end, this.totalPrice,
-            this.downPayment, this.statusPayment, this.vehicle, this.customer, this.seller);
+    public RentalOrderDTO toDto() {
+        return new RentalOrderDTO(
+                this.id,
+                this.startDate,
+                this.endDate,
+                this.totalPrice,
+                this.downPayment,
+                this.statusPayment,
+                this.vehicle,
+                this.customer,
+                this.seller);
 
-}
+    }
 
 }
