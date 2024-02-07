@@ -2,10 +2,10 @@ package com.develhope.spring.vehicle.forsale;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/vehicleForSale")
@@ -23,5 +23,24 @@ public class VehicleForSaleController {
         return new ResponseEntity<>(vehicleSaved, HttpStatus.CREATED);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<VehicleForSaleDTO>> getAllUsers() {
+        return new ResponseEntity<>(vehicleForSaleService.getAllVehiclesForSale(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getSingle/{id}")
+    public ResponseEntity<Optional<VehicleForSaleDTO>> getUserById(@PathVariable long id) {
+        Optional<VehicleForSaleDTO> vehicleForSaleSearched = vehicleForSaleService.getVehicleForSaleById(id);
+        if(vehicleForSaleSearched.isPresent()) {
+            return new ResponseEntity<>(vehicleForSaleSearched, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(vehicleForSaleSearched, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<VehicleForSaleResponse> deleteVehicleForSaleById(@PathVariable Long id) {
+        return vehicleForSaleService.deleteVehicleForSaleById(id);
+    }
 
 }
