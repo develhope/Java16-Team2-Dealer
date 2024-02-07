@@ -1,6 +1,5 @@
 package com.develhope.spring.orders.forrental;
 
-import com.develhope.spring.orders.forsale.SaleOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/v1/rental-order")
-public class RentalOrderController {
+@RequestMapping("/customer/rental-order")
+public class RentalOrderCustomerController {
+    //creare noleggio, vedere storico noleggi, cancellare noleggio
     @Autowired
     private RentalOrderRepository rentalOrderRepository;
     @Autowired
