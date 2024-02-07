@@ -2,7 +2,7 @@ package com.develhope.spring.orders.forrental;
 
 import com.develhope.spring.orders.StatusPayment;
 import com.develhope.spring.user.UserEntity;
-import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
+import com.develhope.spring.vehicle.forrental.VehicleForRental;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -43,7 +42,7 @@ public class RentalOrder {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private VehicleForRentalEntity vehicle;
+    private VehicleForRental vehicle;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

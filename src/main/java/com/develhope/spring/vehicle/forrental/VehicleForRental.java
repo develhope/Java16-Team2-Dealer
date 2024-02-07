@@ -14,18 +14,22 @@ import java.math.BigDecimal;
 @SuperBuilder
 @Entity
 @Table(name = "vehicle_for_rental")
-public class VehicleForRentalEntity extends VehicleEntity {
+public class VehicleForRental extends VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private BigDecimal hourlyPrice;
+    private BigDecimal dailyPrice;
 
     @Enumerated(EnumType.STRING)
     private StatusRental status;
 
-
+public VehicleForRentalDTO toDTO(){
+    VehicleForRentalDTO vehicleForRentalDTO = VehicleForRentalDTO.builder()
+           // ??
+         return vehicleForRentalDTO;
+}
 
 }

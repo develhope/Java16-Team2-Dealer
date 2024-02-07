@@ -2,7 +2,7 @@ package com.develhope.spring.orders.forrental;
 
 import com.develhope.spring.orders.StatusPayment;
 import com.develhope.spring.user.UserEntity;
-import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
+import com.develhope.spring.vehicle.forrental.VehicleForRental;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import java.math.BigDecimal;
@@ -22,9 +22,13 @@ public class RentalOrderDTO {
     private BigDecimal dailyPrice;
     private BigDecimal totalPrice;
     private StatusPayment statusPayment;
-    private VehicleForRentalEntity vehicle;
+    private VehicleForRental vehicle;
     private UserEntity customer;
     private UserEntity seller;
+
+    //private Long vehicleid;
+    //private Long customerid;
+    //private Long  sellerid;
 
     public RentalOrder toEntity() {
         return new RentalOrder(this.id,

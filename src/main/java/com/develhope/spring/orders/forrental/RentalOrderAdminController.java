@@ -1,5 +1,8 @@
 package com.develhope.spring.orders.forrental;
 
+import com.develhope.spring.user.UserEntity;
+import com.develhope.spring.vehicle.forrental.VehicleForRental;
+import com.develhope.spring.vehicle.forrental.VehicleForRentalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +23,17 @@ public class RentalOrderAdminController {
     private RentalOrderRepository rentalOrderRepository;
     @Autowired
     private RentalOrderService rentalOrderService;
+    @Autowired
+    VehicleForRental vehicleForRental;
+    @Autowired
+    VehicleForRentalDTO vehicleForRentalDTO;
 
     @PostMapping(path = "/create")
     public ResponseEntity<RentalOrderDTO> addOrder(@RequestBody RentalOrderDTO order) {
+        // se esiste id veicolo --> errore veicolo non esistente
+        //se esiste id customer --> riprova
+        //se customer id è in userDTO allora --> registro il noleggio altrimeti registra nuovo utente
+
         RentalOrderDTO savedOrder = rentalOrderService.addOrder(order);
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
