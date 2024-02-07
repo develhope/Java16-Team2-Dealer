@@ -1,5 +1,6 @@
 package com.develhope.spring.vehicle.forrental;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +10,25 @@ import java.util.Optional;
 @Service
 
 public class VehicleForRentalService {
+    @Autowired
     private VehicleForRentalRepository vehicleForRentalRepository;
     public VehicleForRentalService(VehicleForRentalRepository vehicleForRentalRepository){
         this.vehicleForRentalRepository = vehicleForRentalRepository;
     }
     public VehicleForRentalDTO addVehicleForRental(VehicleForRentalDTO vehicleForRentalDTO){
-        VehicleForRental vehicleForRentaleToSave = vehicleForRentalDTO.toEntity();
-        VehicleForRental vehicleROSaved = vehicleForRentalRepository.saveAndFlush(vehicleForRentaleToSave);
-        return vehicleROSaved.toDto();
+        VehicleForRentalEntity vehicleForRentalToSaveEntity = vehicleForRentalDTO.toEntity();
+        VehicleForRentalEntity vehicleROSaved = vehicleForRentalRepository.saveAndFlush(vehicleForRentalToSaveEntity);
+        return vehicleROSaved.toDTO();
     }
 
     public List<VehicleForRentalDTO> getAllVehiclesForRental() {
-        List<VehicleForRental> vehiclesForRental = vehicleForRentalRepository.findAll();
-        return vehiclesForRental.stream().map(VehicleForRental::toDTO).toList();
+        List<VehicleForRentalEntity> vehiclesForRental = vehicleForRentalRepository.findAll();
+        return vehiclesForRental.stream().map(VehicleForRentalEntity::toDTO).toList();
     }
 
     public Optional<VehicleForRentalDTO> getVehicleForRentalById(Long id) {
-        Optional<VehicleForRental> vehicleForRentalSearched = vehicleForRentalRepository.findById(id);
-        return vehicleForRentalSearched.map(VehicleForRental::toDTO);
+        Optional<VehicleForRentalEntity> vehicleForRentalSearched = vehicleForRentalRepository.findById(id);
+        return vehicleForRentalSearched.map(VehicleForRentalEntity::toDTO);
     }
 
     ResponseEntity<VehicleForRentalResponse> deleteVehicleForRentalById(Long id) {

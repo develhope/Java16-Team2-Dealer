@@ -1,7 +1,6 @@
 package com.develhope.spring.orders.forrental;
 
-import com.develhope.spring.user.UserEntity;
-import com.develhope.spring.vehicle.forrental.VehicleForRental;
+import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
 import com.develhope.spring.vehicle.forrental.VehicleForRentalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class RentalOrderAdminController {
     @Autowired
     private RentalOrderService rentalOrderService;
     @Autowired
-    VehicleForRental vehicleForRental;
+    VehicleForRentalEntity vehicleForRentalEntity;
     @Autowired
     VehicleForRentalDTO vehicleForRentalDTO;
 

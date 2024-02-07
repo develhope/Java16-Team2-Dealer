@@ -1,33 +1,33 @@
 package com.develhope.spring.vehicle.forrental;
 
-import com.develhope.spring.vehicle.VehicleDTO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.develhope.spring.vehicle.VehicleEntity;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
+@Entity
+@Table(name = "vehicle_for_rental")
+public class VehicleForRentalEntity extends VehicleEntity {
 
-public class VehicleForRentalDTO extends VehicleDTO {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private BigDecimal dailyPrice;
 
+    @Enumerated(EnumType.STRING)
     private StatusRental status;
 
-
-    public VehicleForRentalEntity toEntity() {
-
-        VehicleForRentalEntity vehicleForRentalEntity = VehicleForRentalEntity.builder()
+    public VehicleForRentalDTO toDTO() {
+        VehicleForRentalDTO vehicleForRentalDTO = VehicleForRentalDTO.builder()
                 .licensePlate(this.getLicensePlate())
                 .brand(this.getBrand())
                 .model(this.getModel())
@@ -42,9 +42,10 @@ public class VehicleForRentalDTO extends VehicleDTO {
                 .dailyPrice(this.dailyPrice)
                 .status(this.status)
                 .build();
-        return vehicleForRentalEntity;
-    }
 
+        return vehicleForRentalDTO;
+
+    }
 
 
 }

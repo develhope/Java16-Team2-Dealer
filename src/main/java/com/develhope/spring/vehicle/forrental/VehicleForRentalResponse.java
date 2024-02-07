@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 @AllArgsConstructor
 @Builder
 public class VehicleForRentalResponse {
-    String statusDesciption;
+    String statusDescription;
     int statusCode;
 
     public static ResponseEntity<VehicleForRentalResponse>
-    mapResponseEntity(VehicleForRentalResponse vehicleForRentalResponse){
+    mapResponseEntity(VehicleForRentalResponse responseRO){
         HttpStatus status = HttpStatus.resolve(responseRO.statusCode);
         if (status != null){
             return new ResponseEntity<>(responseRO, status);
