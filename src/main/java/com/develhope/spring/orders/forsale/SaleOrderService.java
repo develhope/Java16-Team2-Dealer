@@ -33,12 +33,23 @@ public class SaleOrderService {
         if(vehicle.getStatus().equals(StatusSale.SELLABLE) || vehicle.getStatus().equals(StatusSale.ORDERABLE)) {
             SaleOrder order = new SaleOrder();
             order.setDate(LocalDate.now());
-            order.setTotalPrice(saleOrder.getTotalPrice());
+
+            //Calcola il totalPrice basato su listPrice e discountPercentage del veicolo
+            double listPrice = vehicle.getListPrice().doubleValue();
+            double discountPercentage = vehicle.getDiscountPercentage();
+            double discount = (listPrice * discountPercentage)/100;
+            order.setTotalPrice(vehicle.getListPrice().subtract(BigDecimal.valueOf(discount)));
+
             order.setStatusPayment(saleOrder.getStatusPayment());
             order.setVehicleId(vehicle);
             order.setCustomerId(userRepository.findById(customer_id).get());
             order.setSellerId(userRepository.findById(seller_id).get());
-            return saleOrderRepository.saveAndFlush(order);
+            SaleOrder saveOrder = saleOrderRepository.saveAndFlush(order);
+
+            //aggiorno stato del veicolo a NOT AVAILABLE
+            vehicle.setStatus(StatusSale.NOT_AVAILABLE);
+            vehicleForSaleRepository.save(vehicle);
+            return saveOrder;
         } else {
             return null;
         }
