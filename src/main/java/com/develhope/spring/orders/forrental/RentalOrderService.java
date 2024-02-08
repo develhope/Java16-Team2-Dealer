@@ -1,7 +1,5 @@
 package com.develhope.spring.orders.forrental;
 
-import com.develhope.spring.orders.forsale.SaleOrder;
-import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
 import com.develhope.spring.vehicle.forrental.VehicleForRentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +14,6 @@ public class RentalOrderService {
     @Autowired
     private VehicleForRentalRepository vehicleForRentalRepository;
 
-//    public void findID(RentalOrderDTO rentalOrderDTO){
-//        VehicleForRentalEntity vehicle = vehicleForRentalRepository.findById(rentalOrderDTO.getVehicle()).get();
-//    }
 
     public RentalOrderDTO addOrder(RentalOrderDTO order) {
         RentalOrder orderToSave = order.toEntity();

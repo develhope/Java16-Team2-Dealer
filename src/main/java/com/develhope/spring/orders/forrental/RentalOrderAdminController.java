@@ -1,6 +1,6 @@
 package com.develhope.spring.orders.forrental;
 
-import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
+import com.develhope.spring.vehicle.forrental.VehicleForRental;
 import com.develhope.spring.vehicle.forrental.VehicleForRentalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +18,10 @@ public class RentalOrderAdminController {
     // creare noleggio per utente X,
     // cancellare noleggio per utente X,
     // modificare noleggio per utente X
-    @Autowired
-    private RentalOrderRepository rentalOrderRepository;
+
     @Autowired
     private RentalOrderService rentalOrderService;
-    @Autowired
-    VehicleForRentalEntity vehicleForRentalEntity;
-    @Autowired
-    VehicleForRentalDTO vehicleForRentalDTO;
+
 
     @PostMapping(path = "/create")
     public ResponseEntity<RentalOrderDTO> addOrder(@RequestBody RentalOrderDTO order) {

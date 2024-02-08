@@ -4,6 +4,7 @@ import com.develhope.spring.vehicle.VehicleDTO;
 import com.develhope.spring.vehicle.VehicleEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 

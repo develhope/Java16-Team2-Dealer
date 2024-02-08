@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Super;
+import org.springframework.stereotype.Component;
 
 @Data
 @AllArgsConstructor

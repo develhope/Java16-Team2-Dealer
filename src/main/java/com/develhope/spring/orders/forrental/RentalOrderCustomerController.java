@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+
 @RequestMapping("/customer/rental-order")
 public class RentalOrderCustomerController {
     //creare noleggio, vedere storico noleggi, cancellare noleggio
-    @Autowired
-    private RentalOrderRepository rentalOrderRepository;
-    @Autowired
+       @Autowired
     private RentalOrderService rentalOrderService;
 
     @PostMapping(path = "/create")

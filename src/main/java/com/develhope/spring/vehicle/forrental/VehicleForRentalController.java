@@ -10,8 +10,4 @@ public class VehicleForRentalController {
     @Autowired
     private VehicleForRentalService vehicleForRentalService;
 
-
-    
-
-
 }

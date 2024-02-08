@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -25,9 +26,9 @@ public class VehicleForRentalDTO extends VehicleDTO {
     private StatusRental status;
 
 
-    public VehicleForRentalEntity toEntity() {
+    public VehicleForRental toEntity() {
 
-        VehicleForRentalEntity vehicleForRentalEntity = VehicleForRentalEntity.builder()
+        VehicleForRental vehicleForRental = VehicleForRental.builder()
                 .licensePlate(this.getLicensePlate())
                 .brand(this.getBrand())
                 .model(this.getModel())
@@ -42,7 +43,7 @@ public class VehicleForRentalDTO extends VehicleDTO {
                 .dailyPrice(this.dailyPrice)
                 .status(this.status)
                 .build();
-        return vehicleForRentalEntity;
+        return vehicleForRental;
     }
 
 

@@ -16,8 +16,7 @@ public class RentalOrderSellerController {
     // creare noleggio per utente X,
     // cancellare noleggio per utente X,
     // modificare noleggio per utente X
-    @Autowired
-    private RentalOrderRepository rentalOrderRepository;
+
     @Autowired
     private RentalOrderService rentalOrderService;
 

@@ -16,19 +16,19 @@ public class VehicleForRentalService {
         this.vehicleForRentalRepository = vehicleForRentalRepository;
     }
     public VehicleForRentalDTO addVehicleForRental(VehicleForRentalDTO vehicleForRentalDTO){
-        VehicleForRentalEntity vehicleForRentalToSaveEntity = vehicleForRentalDTO.toEntity();
-        VehicleForRentalEntity vehicleROSaved = vehicleForRentalRepository.saveAndFlush(vehicleForRentalToSaveEntity);
+        VehicleForRental vehicleForRentalToSaveEntity = vehicleForRentalDTO.toEntity();
+        VehicleForRental vehicleROSaved = vehicleForRentalRepository.saveAndFlush(vehicleForRentalToSaveEntity);
         return vehicleROSaved.toDTO();
     }
 
     public List<VehicleForRentalDTO> getAllVehiclesForRental() {
-        List<VehicleForRentalEntity> vehiclesForRental = vehicleForRentalRepository.findAll();
-        return vehiclesForRental.stream().map(VehicleForRentalEntity::toDTO).toList();
+        List<VehicleForRental> vehiclesForRental = vehicleForRentalRepository.findAll();
+        return vehiclesForRental.stream().map(VehicleForRental::toDTO).toList();
     }
 
     public Optional<VehicleForRentalDTO> getVehicleForRentalById(Long id) {
-        Optional<VehicleForRentalEntity> vehicleForRentalSearched = vehicleForRentalRepository.findById(id);
-        return vehicleForRentalSearched.map(VehicleForRentalEntity::toDTO);
+        Optional<VehicleForRental> vehicleForRentalSearched = vehicleForRentalRepository.findById(id);
+        return vehicleForRentalSearched.map(VehicleForRental::toDTO);
     }
 
     ResponseEntity<VehicleForRentalResponse> deleteVehicleForRentalById(Long id) {
