@@ -13,8 +13,7 @@ import java.util.Optional;
 @RequestMapping("/customer/rental-order")
 public class RentalOrderCustomerController {
     //creare noleggio, vedere storico noleggi, cancellare noleggio
-    @Autowired
-    private RentalOrderRepository rentalOrderRepository;
+
     @Autowired
     private RentalOrderService rentalOrderService;
 

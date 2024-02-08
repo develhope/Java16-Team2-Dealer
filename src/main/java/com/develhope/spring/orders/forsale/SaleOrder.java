@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Fetch;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -32,26 +33,20 @@ public class SaleOrder {
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
-    private BigDecimal downPayment;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPayment statusPayment;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private VehicleForSale vehicle;
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private VehicleForSale vehicleId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private UserEntity customer;
+    @JoinColumn(name = "customer_id", nullable = false)
+    private UserEntity customerId;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private UserEntity seller;
+    @JoinColumn(name = "seller_id", nullable = false)
+    private UserEntity sellerId;
 
-    public SaleOrderDTO toDto() {
-        return new SaleOrderDTO(this.id, this.date, this.totalPrice, this.downPayment, this.statusPayment, this.vehicle,
-                this.customer, this.seller);
-    }
 }
