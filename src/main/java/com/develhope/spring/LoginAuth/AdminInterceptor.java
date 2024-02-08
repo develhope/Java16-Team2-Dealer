@@ -16,7 +16,7 @@ public class AdminInterceptor implements HandlerInterceptor {
             response.sendError(510, "Need to log in");
             return false;
         }
-        if (!(idLog.getType().equals("ADMIN"))){
+        if (!(idLog.getRole().equals("ADMIN"))){
             response.sendError(401, "Unauthorized");
             return false;
         }

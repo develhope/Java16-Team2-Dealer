@@ -17,7 +17,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
             response.sendError(510, "Need to log in");
             return false;
         }
-        if (!(idLog.getType().equals("CUSTOMER"))){
+        if (!(idLog.getRole().equals("CUSTOMER"))){
             response.sendError(401, "Unauthorized");
             return false;
         }

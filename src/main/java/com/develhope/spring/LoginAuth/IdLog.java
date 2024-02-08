@@ -14,5 +14,5 @@ import org.springframework.stereotype.Component;
 
 public class IdLog {
     private Long id;
-    private String type;
+    private String role;
 }

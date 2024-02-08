@@ -19,7 +19,7 @@ public class SellerInterceptor implements HandlerInterceptor {
             response.sendError(510, "Need to log in");
             return false;
         }
-        if (!(idLog.getType().equals("SELLER"))){
+        if (!(idLog.getRole().equals("SELLER"))){
             response.sendError(401, "Unauthorized");
             return false;
         }
