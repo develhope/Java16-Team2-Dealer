@@ -1,6 +1,5 @@
 package com.develhope.spring.orders.forsale;
 
-import com.develhope.spring.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/sale")
-public class SaleOrderController {
+@RequestMapping("/customer/sale")
+public class SaleOrderCustomerController {
     @Autowired
     SaleOrderService saleOrderService;
     @PostMapping(path = "/create")

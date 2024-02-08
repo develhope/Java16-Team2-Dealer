@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RequestMapping("/customer/rental-order")
+@RequestMapping("/customer/rental")
 public class RentalOrderCustomerController {
     //creare noleggio, vedere storico noleggi, cancellare noleggio
        @Autowired

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/seller/rental-order")
+@RequestMapping("/seller/rental")
 public class RentalOrderSellerController {
     // vista di tutti i noleggi
     // creare noleggio per utente X,
