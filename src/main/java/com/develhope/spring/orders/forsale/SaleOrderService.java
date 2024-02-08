@@ -38,8 +38,7 @@ public class SaleOrderService {
             order.setVehicleId(vehicle);
             order.setCustomerId(userRepository.findById(customer_id).get());
             order.setSellerId(userRepository.findById(seller_id).get());
-            order.getVehicleId().setStatus(StatusSale.NOT_AVAILABLE);
-            return order;
+            return saleOrderRepository.saveAndFlush(order);
         } else {
             return null;
         }
