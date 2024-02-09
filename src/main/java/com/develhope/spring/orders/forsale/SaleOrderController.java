@@ -22,7 +22,7 @@ public class SaleOrderController {
         return saleOrderService.createSaleOrder(order, vehicle_id, customer_id, seller_id);
     }
 
-    @PostMapping("/pay/{orderId}")
+    @PatchMapping("/pay/{orderId}")
     public ResponseEntity<String> payOrder(@PathVariable Long orderId) {
         boolean isPaid = saleOrderService.payOrder(orderId);
         if (isPaid) {
