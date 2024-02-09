@@ -48,8 +48,8 @@ public class SaleOrderService {
             SaleOrder saveOrder = saleOrderRepository.saveAndFlush(order);
 
             //aggiorno stato del veicolo a NOT AVAILABLE
-            /*vehicle.setStatus(StatusSale.NOT_AVAILABLE);
-            vehicleForSaleRepository.save(vehicle);*/
+            vehicle.setStatus(StatusSale.NOT_AVAILABLE);
+            vehicleForSaleRepository.save(vehicle);
             return saveOrder;
         } else {
             return null;
