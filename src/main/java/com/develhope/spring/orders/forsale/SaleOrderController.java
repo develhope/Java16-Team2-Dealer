@@ -22,6 +22,16 @@ public class SaleOrderController {
         return saleOrderService.createSaleOrder(order, vehicle_id, customer_id, seller_id);
     }
 
+    @PostMapping("/pay/{orderId}")
+    public ResponseEntity<String> payOrder(@PathVariable Long orderId) {
+        boolean isPaid = saleOrderService.payOrder(orderId);
+        if (isPaid) {
+            return ResponseEntity.ok("Paid successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Error while paying the order.");
+        }
+    }
+
 
     /*@GetMapping("/getAll")
     public ResponseEntity<List<SaleOrderDTO>> getAllSales() {
