@@ -41,7 +41,7 @@ public class SaleOrderService {
             double discount = (listPrice * discountPercentage) / 100;
             order.setTotalPrice(vehicle.getListPrice().subtract(BigDecimal.valueOf(discount)));
 
-            order.setStatusPayment(saleOrder.getStatusPayment());
+            order.setStatusPayment(StatusPayment.TO_PAY);
             order.setVehicleId(vehicle);
             order.setCustomerId(userRepository.findById(customer_id).get());
             order.setSellerId(userRepository.findById(seller_id).get());
