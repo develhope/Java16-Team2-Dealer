@@ -1,11 +1,14 @@
 package com.develhope.spring.vehicle.forsale;
 
+import com.develhope.spring.orders.forsale.SaleOrder;
 import com.develhope.spring.vehicle.VehicleEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -13,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "Vehicle for Sale")
+@Table(name = "vehicle_for_sale")
 public class VehicleForSale extends VehicleEntity {
 
     @Id
@@ -30,6 +33,7 @@ public class VehicleForSale extends VehicleEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusSale status;
+
 
     public VehicleForSaleDTO toDTO() {
         VehicleForSaleDTO vehicleForSaleDTO = VehicleForSaleDTO.builder()

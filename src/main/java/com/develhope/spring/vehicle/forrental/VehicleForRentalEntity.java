@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "Vehicle for Rental")
-public class VehicleForRental extends VehicleEntity {
+@Table(name = "vehicle_for_rental")
+public class VehicleForRentalEntity extends VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
