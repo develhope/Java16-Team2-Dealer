@@ -25,6 +25,7 @@ public class RentalOrderDTO {
     private VehicleForRentalEntity vehicle;
     private UserEntity customer;
     private UserEntity seller;
+    private Boolean rentable;
 
     public RentalOrder toEntity() {
         return new RentalOrder(this.id,
@@ -34,7 +35,7 @@ public class RentalOrderDTO {
                 this.totalPrice,
                 this.statusPayment,
                 this.vehicle,
-                this.customer, this.seller);
+                this.customer, this.seller, this.rentable);
     }
 
 }

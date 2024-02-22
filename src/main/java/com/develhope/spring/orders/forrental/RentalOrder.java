@@ -53,6 +53,8 @@ public class RentalOrder {
     @JoinColumn(name = "seller_id")
     private UserEntity seller;
 
+    private Boolean rentable;
+
     public RentalOrderDTO toDto() {
         return new RentalOrderDTO(
                 this.id,
@@ -63,8 +65,8 @@ public class RentalOrder {
                 this.statusPayment,
                 this.vehicle,
                 this.customer,
-                this.seller);
-
+                this.seller,
+                this.rentable);
     }
-
 }
+
