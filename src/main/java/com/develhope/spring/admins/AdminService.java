@@ -98,7 +98,7 @@ public class AdminService {
             vehicleForRentalRepository.deleteById(vehicleId);
         }
     }
-}
+
 
 
 //Creare un ordine per un utente
