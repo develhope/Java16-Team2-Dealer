@@ -4,9 +4,7 @@ import com.develhope.spring.orders.StatusPayment;
 import com.develhope.spring.user.UserEntity;
 import com.develhope.spring.vehicle.forrental.VehicleForRentalEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -18,7 +16,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table
+@Table(name = "rents")
+@Getter
+@Setter
 public class RentalOrder {
 
     @Id

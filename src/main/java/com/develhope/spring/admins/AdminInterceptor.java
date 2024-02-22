@@ -1,4 +1,5 @@
-package com.develhope.spring.loginAuth;
+package com.develhope.spring.admins;
+import com.develhope.spring.loginAuth.IdLog;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

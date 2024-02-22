@@ -1,6 +1,9 @@
 package com.develhope.spring.loginAuth;
 
 
+import com.develhope.spring.admins.AdminInterceptor;
+import com.develhope.spring.customers.CustomerInterceptor;
+import com.develhope.spring.sellers.SellerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
