@@ -1,16 +1,14 @@
 package com.develhope.spring.orders.forsale;
 
 import com.develhope.spring.orders.StatusPayment;
-import com.develhope.spring.user.UserDTO;
 import com.develhope.spring.user.UserEntity;
+import com.develhope.spring.vehicle.forsale.StatusSale;
 import com.develhope.spring.vehicle.forsale.VehicleForSale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Fetch;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -49,4 +47,12 @@ public class SaleOrder {
     @JoinColumn(name = "seller_id", nullable = false)
     private UserEntity sellerId;
 
+    @Column(name = "sale_status" , nullable = false)
+    private StatusSale statusSale;
+    @Column(name = "order_status" , nullable = false)
+    private SaleOrderStatus saleOrderStatus;
+
+
+    @Column(name = "statement" , nullable = false)
+    private SaleOrderStatement saleOrderStatement;
 }
