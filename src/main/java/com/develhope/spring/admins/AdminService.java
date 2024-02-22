@@ -230,7 +230,7 @@ public class AdminService {
             newRentalOrder.setStatusPayment(rentalOrder.getStatusPayment());
             newRentalOrder.setVehicle(vehicle);
             newRentalOrder.setCustomer(rentalOrder.getCustomer());
-            newRentalOrder.setSeller(seller);
+            newRentalOrder.setSellerId(seller);
             newRentalOrder.setCustomer(customer);
             newRentalOrder.setStatusPayment(StatusPayment.DOWN_PAYMENT);
             newRentalOrder.setRentable(false);

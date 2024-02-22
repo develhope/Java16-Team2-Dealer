@@ -21,10 +21,10 @@ import java.util.List;
 public class CustomerEntity extends UserEntity {
     private  String phone;
 
-    @OneToMany(mappedBy = "idCustomer" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerId" , cascade = CascadeType.ALL)
     private List<SaleOrder> saleOrderList;
 
-    @OneToMany(mappedBy = "idCustomer" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL)
     private List<RentalOrder> rentalOrderListe;
 
 

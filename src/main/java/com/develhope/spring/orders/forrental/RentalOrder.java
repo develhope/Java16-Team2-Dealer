@@ -51,7 +51,7 @@ public class RentalOrder {
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private UserEntity seller;
+    private UserEntity sellerId;
 
     private Boolean rentable;
 
@@ -65,7 +65,7 @@ public class RentalOrder {
                 this.statusPayment,
                 this.vehicle,
                 this.customer,
-                this.seller,
+                this.sellerId,
                 this.rentable);
     }
 }
