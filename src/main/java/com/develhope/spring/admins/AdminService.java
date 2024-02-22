@@ -105,5 +105,28 @@ public class AdminService {
         }
     }
 
+    public SaleOrder updatePurchase(SaleOrder saleOrder, Long saleOrderId) {
+        if (idLog.getRole().equals("ADMIN")) {
+            SaleOrder newOrder = saleOrderRepository.findById(saleOrderId).get();
+            if (saleOrder.getSaleOrderStatus() != null) {
+                newOrder.setSaleOrderStatus(saleOrder.getSaleOrderStatus());
+            }
+            if (saleOrder.getSaleOrderStatement() != null) {
+                newOrder.setSaleOrderStatement(saleOrder.getSaleOrderStatement());
+            }
+            if (saleOrder.getStatusPayment() != null) {
+                newOrder.setStatusPayment(saleOrder.getStatusPayment());
+            }
+            return saleOrderRepository.save(newOrder);
+        } else {
+            return null;
+        }
+    }
+    public SaleOrder updateDeletedPurchase(Long saleOrderId){
+        saleOrderRepository.updateDeletedById(saleOrderId);
+        return saleOrderRepository.findById(saleOrderId).get();
+
+    }
 
 }
+
