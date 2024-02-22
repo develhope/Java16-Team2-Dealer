@@ -33,7 +33,16 @@ public class AdminService {
     @Autowired
     private RentalOrderRepository rentalOrderRepository;
 
+
     public SaleOrder createSaleOrder(SaleOrder saleOrder, Long customerId, Long vehicleId, Long sellerId) {
+        if (idLog.getRole().equals("ADMIN")) {
+            return saleOrderRepository.save(addNewSaleOrder(saleOrder, customerId, vehicleId, sellerId));
+        } else {
+            return null;
+        }
+    }
+
+    public SaleOrder addNewSaleOrder(SaleOrder saleOrder, Long customerId, Long vehicleId, Long sellerId) {
         VehicleForSale vehicleSale = vehicleForSaleRepository.findById(vehicleId).get();
         if (vehicleSale.getStatus().equals(StatusSale.ORDERABLE)) {
             SaleOrder newSaleOrder = new SaleOrder();
@@ -44,7 +53,57 @@ public class AdminService {
             newSaleOrder.setCustomerId(customerRepository.findById(customerId).get());
             newSaleOrder.setSellerId(sellerRepository.findById(sellerId).get());
             return newSaleOrder;
-        } else{return null;}
+        } else {
+            return null;
+        }
     }
+
+    public SaleOrder updateSaleOrder(SaleOrder saleOrder, Long saleOrderId) {
+        if (idLog.getRole().equals("ADMIN")) {
+            SaleOrder newOrder = saleOrderRepository.findById(saleOrderId).get();
+            if (saleOrder.getSaleOrderStatus() != null) {
+                newOrder.setSaleOrderStatus(saleOrder.getSaleOrderStatus());
+            }
+            if (saleOrder.getSaleOrderStatement() != null) {
+                newOrder.setSaleOrderStatement(saleOrder.getSaleOrderStatement());
+            }
+            if (saleOrder.getStatusPayment() != null) {
+                newOrder.setStatusPayment(saleOrder.getStatusPayment());
+            }
+            return saleOrderRepository.save(newOrder);
+        } else {
+            return null;
+        }
+    }
+
+    public SaleOrder updateDeleted(Long saleOrderId) {
+        saleOrderRepository.updateDeletedById(saleOrderId);
+        return saleOrderRepository.findById(saleOrderId).get();
+    }
+
+    public SaleOrder createPurchase(SaleOrder saleOrder, Long sellerId, Long vehicleId, Long customerId) {
+        if (idLog.getRole().equals("ADMIN")) {
+            return saleOrderRepository.save(addNewPurchase(saleOrder, sellerId, vehicleId, customerId));
+        } else {
+            return null;
+        }
+    }
+
+    public SaleOrder addNewPurchase(SaleOrder saleOrder, Long sellerId, Long vehicleId, Long customerId) {
+        VehicleForSale vehicleSale = vehicleForSaleRepository.findById(vehicleId).get();
+        if (vehicleSale.getStatus().equals(StatusSale.SELLABLE)) {
+            SaleOrder newSaleOrder = new SaleOrder();
+            newSaleOrder.setSaleOrderStatus(SaleOrderStatus.PURCHASE);
+            newSaleOrder.setStatusSale(saleOrder.getStatusSale());
+            newSaleOrder.setStatusPayment(saleOrder.getStatusPayment());
+            newSaleOrder.setVehicleId(vehicleSale);
+            newSaleOrder.setCustomerId(customerRepository.findById(customerId).get());
+            newSaleOrder.setSellerId(sellerRepository.findById(sellerId).get());
+            return newSaleOrder;
+        } else {
+            return null;
+        }
+    }
+
 
 }
