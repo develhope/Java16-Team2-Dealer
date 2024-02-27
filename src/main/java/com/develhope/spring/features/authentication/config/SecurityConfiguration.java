@@ -1,6 +1,6 @@
 package com.develhope.spring.features.authentication.config;
 
-import com.develhope.spring.features.user.UserService;
+import com.develhope.spring.features.user.services.UserService;
 import com.develhope.spring.features.user.entities.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +30,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/auth/**").permitAll()//.anyRequest().authenticated()
-                        .requestMatchers("/api/v1/admins/**").hasAuthority(Role.ADMIN.name()).anyRequest().authenticated()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/admins/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("/api/v1/sellers/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name())
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

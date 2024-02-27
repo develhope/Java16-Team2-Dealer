@@ -1,7 +1,7 @@
-package com.develhope.spring.features.user;
+package com.develhope.spring.features.user.services;
 
 import com.develhope.spring.features.user.dto.UserRequestDto;
-import com.develhope.spring.features.user.dto.UserResponseDTO;
+import com.develhope.spring.features.user.dto.UserResponseDto;
 import com.develhope.spring.features.user.entities.Role;
 import com.develhope.spring.features.user.entities.UserEntity;
 import com.develhope.spring.features.user.model.UserModel;
@@ -31,19 +31,21 @@ public class UserServiceImpl implements UserService{
         };
     }
 
-    public UserResponseDTO createAdmin(UserRequestDto newAdmin) {
+    public UserResponseDto createUser(UserRequestDto newUser, Role role) {
 
-        UserModel newAdminModel = UserModel.convertRequestToModel(newAdmin);
-        newAdminModel.setRole(Role.ADMIN);
-        UserEntity newAdminEntity = UserModel.convertModelToEntity(newAdminModel);
-        UserEntity savedAdmin = userRepository.saveAndFlush(newAdminEntity);
-        UserModel savedAdminModel = UserModel.convertEntityToModel(savedAdmin);
-        return UserModel.convertModelToResponse(savedAdminModel);
+        UserModel newUserModel = UserModel.convertRequestToModel(newUser);
+        newUserModel.setRole(role);
+        UserEntity newUserEntity = UserModel.convertModelToEntity(newUserModel);
+        UserEntity savedUser = userRepository.saveAndFlush(newUserEntity);
+        UserModel savedUserModel = UserModel.convertEntityToModel(savedUser);
+        return UserModel.convertModelToResponse(savedUserModel);
 
     }
 
-    @Override
-    public List<UserEntity> getAllAdmins() {
-        return userRepository.findByRole(Role.ADMIN);
+
+    public List<UserResponseDto> getAllByRole(Role role) {
+        List<UserEntity> admins = userRepository.findByRole(role);
+        List<UserModel> adminsModel = UserModel.convertEntityListToModelList(admins);
+        return UserModel.convertModelListToResponseList(adminsModel);
     }
 }

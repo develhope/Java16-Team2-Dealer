@@ -1,6 +1,5 @@
 package com.develhope.spring.features.user.repository;
 
-import com.develhope.spring.features.user.UserService;
 import com.develhope.spring.features.user.entities.Role;
 import com.develhope.spring.features.user.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

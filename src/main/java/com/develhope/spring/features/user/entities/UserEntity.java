@@ -2,6 +2,7 @@ package com.develhope.spring.features.user.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,7 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "_user")
+@Table(name = "_users" )
 public class UserEntity implements UserDetails {
 
     @Id
@@ -85,7 +86,7 @@ public class UserEntity implements UserDetails {
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
@@ -96,7 +97,7 @@ public class UserEntity implements UserDetails {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 

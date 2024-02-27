@@ -1,13 +1,15 @@
 package com.develhope.spring.features.user.model;
 
 import com.develhope.spring.features.user.dto.UserRequestDto;
-import com.develhope.spring.features.user.dto.UserResponseDTO;
+import com.develhope.spring.features.user.dto.UserResponseDto;
 import com.develhope.spring.features.user.entities.Role;
 import com.develhope.spring.features.user.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Data
 @RequiredArgsConstructor
@@ -61,8 +63,9 @@ public class UserModel {
                 .build();
     }
 
-    public static UserResponseDTO convertModelToResponse(UserModel model) {
-        return UserResponseDTO.builder()
+    public static UserResponseDto convertModelToResponse(UserModel model) {
+        return UserResponseDto.builder()
+                .id(model.getId())
                 .firstName(model.getFirstName())
                 .lastName(model.getLastName())
                 .phoneNumber(model.getPhoneNumber())
@@ -71,6 +74,20 @@ public class UserModel {
                 .active(model.isActive())
                 .role(model.getRole())
                 .build();
+    }
+
+    public static List<UserModel> convertEntityListToModelList(List<UserEntity> entities) {
+        return entities
+                .stream()
+                .map(UserModel::convertEntityToModel)
+                .toList();
+    }
+
+    public static List<UserResponseDto> convertModelListToResponseList(List<UserModel> models) {
+        return models
+                .stream()
+                .map(UserModel::convertModelToResponse)
+                .toList();
     }
 
 
