@@ -1,5 +1,10 @@
 package com.develhope.spring.features.user.entities;
 
+
+import lombok.Getter;
+
+
+@Getter
 public enum Role {
 
     ADMIN(1000),
@@ -12,5 +17,6 @@ public enum Role {
     private Role(Integer authorityLevel) {
         this.authorityLevel = authorityLevel;
     }
+
 
 }

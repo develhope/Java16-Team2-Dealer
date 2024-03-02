@@ -4,12 +4,10 @@ import com.develhope.spring.features.authentication.AuthenticationService;
 import com.develhope.spring.features.authentication.dto.request.SignUpRequest;
 import com.develhope.spring.features.authentication.dto.request.SigninRequest;
 import com.develhope.spring.features.authentication.dto.response.JwtAuthenticationResponse;
+import com.develhope.spring.features.user.entities.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -25,4 +23,6 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
+
+
 }

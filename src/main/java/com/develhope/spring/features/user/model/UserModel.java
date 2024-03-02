@@ -34,6 +34,7 @@ public class UserModel {
                 .email(requestDto.getEmail())
                 .password(requestDto.getPassword())
                 .active(requestDto.isActive())
+                .role(requestDto.getRole())
                 .build();
     }
 

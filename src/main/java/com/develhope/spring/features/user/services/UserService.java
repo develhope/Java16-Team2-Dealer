@@ -1,5 +1,6 @@
 package com.develhope.spring.features.user.services;
 
+import com.develhope.spring.features.user.dto.RoleDto;
 import com.develhope.spring.features.user.dto.UserErrorDto;
 import com.develhope.spring.features.user.dto.UserRequestDto;
 import com.develhope.spring.features.user.dto.UserResponseDto;
@@ -15,9 +16,9 @@ public interface UserService {
 
     UserDetailsService userDetailsService();
 
-    List<UserResponseDto> getAllByRole(Role role);
+    Either<UserErrorDto, List<UserResponseDto>>  getAllByRole(UserEntity userLogged, RoleDto role);
 
-    UserResponseDto createUser(UserRequestDto newUser, Role role);
+    Either<UserErrorDto, UserResponseDto> createUser(UserRequestDto newUser, UserEntity userLogged);
 
     Either<UserErrorDto, Boolean> deleteUser(Long userToDeleteId, UserEntity userLogged);
 }

@@ -34,14 +34,12 @@ public class SecurityConfiguration {
                                 "/v2/api-docs/**",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html/**",
-                                "/swagger-ui/**",
                                 "/webjars/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**").permitAll()
-
 //
-                        .requestMatchers("/api/v1/admins/**").hasAuthority(Role.ADMIN.name())
-                        .requestMatchers("/api/v1/sellers/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name())
+                        .requestMatchers("/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
+                        .requestMatchers("/api/v1/sellers/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name()) //ELIMINARE
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

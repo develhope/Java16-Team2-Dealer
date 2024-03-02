@@ -1,5 +1,6 @@
 package com.develhope.spring.features.user.services;
 
+import com.develhope.spring.features.user.dto.RoleDto;
 import com.develhope.spring.features.user.dto.UserErrorDto;
 import com.develhope.spring.features.user.dto.UserRequestDto;
 import com.develhope.spring.features.user.dto.UserResponseDto;
@@ -34,21 +35,34 @@ public class UserServiceImpl implements UserService{
         };
     }
 
-    public UserResponseDto createUser(UserRequestDto newUser, Role role) {
+    public Either<UserErrorDto, UserResponseDto> createUser(UserRequestDto newUser, UserEntity userLogged) {
+
         UserModel newUserModel = UserModel.convertRequestToModel(newUser);
-        newUserModel.setRole(role);
         UserEntity newUserEntity = UserModel.convertModelToEntity(newUserModel);
-        UserEntity savedUser = userRepository.saveAndFlush(newUserEntity);
-        UserModel savedUserModel = UserModel.convertEntityToModel(savedUser);
-        return UserModel.convertModelToResponse(savedUserModel);
+
+        if(checkAuthorityLevel(userLogged, newUserEntity)) {
+            UserEntity savedUser = userRepository.saveAndFlush(newUserEntity);
+            UserModel savedUserModel = UserModel.convertEntityToModel(savedUser);
+            return Either.right(UserModel.convertModelToResponse(savedUserModel)) ;
+        } else {
+            return Either.left(new UserErrorDto(403, "You don't have the permission to create this user"));
+        }
 
     }
 
+    public Either<UserErrorDto, List<UserResponseDto>> getAllByRole(UserEntity userLogged, RoleDto roleDto) {
 
-    public List<UserResponseDto> getAllByRole(Role role) {
-        List<UserEntity> admins = userRepository.findByRole(role);
-        List<UserModel> adminsModel = UserModel.convertEntityListToModelList(admins);
-        return UserModel.convertModelListToResponseList(adminsModel);
+        if(checkAuthorityLevel(userLogged, roleDto.getRole())) {
+            List<UserEntity> users = userRepository.findByRole(roleDto.getRole());
+            List<UserModel> usersModel = UserModel.convertEntityListToModelList(users);
+            List<UserResponseDto> usersDto = UserModel.convertModelListToResponseList(usersModel);
+            return Either.right(usersDto);
+        } else {
+            return Either.left(new UserErrorDto(403, "You don't have the permission to get these users"));
+        }
+
+
+
     }
 
    public Either<UserErrorDto, Boolean> deleteUser(Long userToDeleteId, UserEntity userLogged) {
@@ -74,7 +88,16 @@ public class UserServiceImpl implements UserService{
    }
 
 
+
    private boolean checkAuthorityLevel(UserEntity loggedUser, UserEntity userToModify) {
-        return loggedUser.getRole().authorityLevel >= userToModify.getRole().authorityLevel;
+        return ( (!loggedUser.getRole().equals(Role.CUSTOMER)) && (loggedUser.getRole().authorityLevel >= userToModify.getRole().authorityLevel));
    }
+
+
+
+    private boolean checkAuthorityLevel(UserEntity loggedUser, Role role) {
+        return ( (!loggedUser.getRole().equals(Role.CUSTOMER) ) && (loggedUser.getRole().authorityLevel >= role.authorityLevel)) ;
+    }
+
+
 }
