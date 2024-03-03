@@ -1,29 +1,26 @@
-package com.develhope.spring.features.vehicle.forSale.entities;
+package com.develhope.spring.features.vehicleForSale.dto;
 
-import com.develhope.spring.features.vehicle.entities.VehicleEntity;
-import com.develhope.spring.features.vehicle.forSale.StatusSale;
-import jakarta.persistence.*;
+import com.develhope.spring.features.vehicle.dto.VehicleResponseDto;
+import com.develhope.spring.features.vehicleForSale.StatusSale;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@SuperBuilder
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Entity
-@Table(name = "vehicle_for_sale")
+public class VehicleForSaleResponseDto extends VehicleResponseDto {
 
-public class VehicleForSaleEntity extends VehicleEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private BigDecimal listPrice;
@@ -36,6 +33,5 @@ public class VehicleForSaleEntity extends VehicleEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusSale status;
-
 
 }

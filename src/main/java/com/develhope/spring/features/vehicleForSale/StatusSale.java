@@ -1,4 +1,4 @@
-package com.develhope.spring.features.vehicle.forSale;
+package com.develhope.spring.features.vehicleForSale;
 
 public enum StatusSale {
     

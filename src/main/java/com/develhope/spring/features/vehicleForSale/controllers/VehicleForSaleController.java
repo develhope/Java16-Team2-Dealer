@@ -1,13 +1,10 @@
-package com.develhope.spring.features.vehicle.forSale.controllers;
+package com.develhope.spring.features.vehicleForSale.controllers;
 
-import com.develhope.spring.features.user.dto.UserResponseDto;
-import com.develhope.spring.features.vehicle.forSale.StatusSale;
-import com.develhope.spring.features.vehicle.forSale.dto.StatusSaleDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleErrorDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleRequestDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleResponseDto;
-import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
-import com.develhope.spring.features.vehicle.forSale.service.VehicleForSaleService;
+import com.develhope.spring.features.vehicleForSale.dto.StatusSaleDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleErrorDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleRequestDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleResponseDto;
+import com.develhope.spring.features.vehicleForSale.service.VehicleForSaleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

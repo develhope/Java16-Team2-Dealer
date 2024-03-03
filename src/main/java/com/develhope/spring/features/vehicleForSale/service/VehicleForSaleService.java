@@ -1,16 +1,14 @@
-package com.develhope.spring.features.vehicle.forSale.service;
+package com.develhope.spring.features.vehicleForSale.service;
 
-import com.develhope.spring.features.vehicle.forSale.StatusSale;
-import com.develhope.spring.features.vehicle.forSale.dto.StatusSaleDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleErrorDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleRequestDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleResponseDto;
-import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
-import com.develhope.spring.features.vehicle.forSale.model.VehicleForSaleModel;
-import com.develhope.spring.features.vehicle.forSale.repository.VehicleForSaleRepository;
+import com.develhope.spring.features.vehicleForSale.dto.StatusSaleDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleErrorDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleRequestDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleResponseDto;
+import com.develhope.spring.features.vehicleForSale.entities.VehicleForSaleEntity;
+import com.develhope.spring.features.vehicleForSale.model.VehicleForSaleModel;
+import com.develhope.spring.features.vehicleForSale.repository.VehicleForSaleRepository;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

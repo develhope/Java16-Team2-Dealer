@@ -1,14 +1,12 @@
-package com.develhope.spring.features.vehicle.forSale.model;
+package com.develhope.spring.features.vehicleForSale.model;
 
-import com.develhope.spring.features.user.dto.UserResponseDto;
-import com.develhope.spring.features.user.entities.UserEntity;
-import com.develhope.spring.features.user.model.UserModel;
-import com.develhope.spring.features.vehicle.dto.VehicleRequestDto;
-import com.develhope.spring.features.vehicle.entities.VehicleEntity;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleRequestDto;
-import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleResponseDto;
-import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
+import com.develhope.spring.features.vehicleForSale.StatusSale;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleRequestDto;
+import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleResponseDto;
+import com.develhope.spring.features.vehicleForSale.entities.VehicleForSaleEntity;
 import com.develhope.spring.features.vehicle.model.VehicleModel;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -32,6 +30,9 @@ public class VehicleForSaleModel extends VehicleModel {
 
     private Boolean isNew;
 
+    @Enumerated(EnumType.STRING)
+    private StatusSale status;
+
 
     public static VehicleForSaleEntity convertModelToEntity(VehicleForSaleModel vModel) {
         return VehicleForSaleEntity.builder()
@@ -50,6 +51,7 @@ public class VehicleForSaleModel extends VehicleModel {
                 .discountPercentage(vModel.getDiscountPercentage())
                 .optionals(vModel.getOptionals())
                 .isNew(vModel.getIsNew())
+                .status(vModel.getStatus())
                 .build();
     }
 
@@ -69,6 +71,7 @@ public class VehicleForSaleModel extends VehicleModel {
                 .discountPercentage(dto.getDiscountPercentage())
                 .optionals(dto.getOptionals())
                 .isNew(dto.getIsNew())
+                .status(dto.getStatus())
                 .build();
     }
 
@@ -89,6 +92,7 @@ public class VehicleForSaleModel extends VehicleModel {
                 .discountPercentage(entity.getDiscountPercentage())
                 .optionals(entity.getOptionals())
                 .isNew(entity.getIsNew())
+                .status(entity.getStatus())
                 .build();
     }
 
@@ -109,6 +113,7 @@ public class VehicleForSaleModel extends VehicleModel {
                 .discountPercentage(model.getDiscountPercentage())
                 .optionals(model.getOptionals())
                 .isNew(model.getIsNew())
+                .status(model.getStatus())
                 .build();
     }
 

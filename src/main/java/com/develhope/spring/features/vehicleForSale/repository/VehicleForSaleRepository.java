@@ -1,7 +1,7 @@
-package com.develhope.spring.features.vehicle.forSale.repository;
+package com.develhope.spring.features.vehicleForSale.repository;
 
-import com.develhope.spring.features.vehicle.forSale.StatusSale;
-import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
+import com.develhope.spring.features.vehicleForSale.StatusSale;
+import com.develhope.spring.features.vehicleForSale.entities.VehicleForSaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

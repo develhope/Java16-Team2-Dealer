@@ -1,6 +1,9 @@
-package com.develhope.spring.features.vehicle.forSale.dto;
+package com.develhope.spring.features.vehicleForSale.dto;
 
 import com.develhope.spring.features.vehicle.dto.VehicleRequestDto;
+import com.develhope.spring.features.vehicleForSale.StatusSale;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -20,5 +23,8 @@ public class VehicleForSaleRequestDto extends VehicleRequestDto {
     private String optionals;
 
     private Boolean isNew;
+
+    @Enumerated(EnumType.STRING)
+    private StatusSale status;
 
 }

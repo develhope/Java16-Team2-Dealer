@@ -1,4 +1,4 @@
-package com.develhope.spring.features.vehicle.forSale.dto;
+package com.develhope.spring.features.vehicleForSale.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
