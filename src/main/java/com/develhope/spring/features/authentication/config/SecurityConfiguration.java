@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**").permitAll()
 //
                         .requestMatchers("/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
-                        .requestMatchers("/api/v1/sellers/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name()) //ELIMINARE
+                        .requestMatchers("/api/v1/vehiclesForSale/**").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
