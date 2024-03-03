@@ -14,5 +14,4 @@ public class SaleOrderError {
     private int code;
     private String message;
 
-
 }
