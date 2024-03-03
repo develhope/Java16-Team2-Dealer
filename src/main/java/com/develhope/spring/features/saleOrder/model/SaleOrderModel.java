@@ -1,6 +1,7 @@
 package com.develhope.spring.features.saleOrder.model;
 
 import com.develhope.spring.features.saleOrder.StatusPayment;
+import com.develhope.spring.features.saleOrder.dto.SaleOrderResponseDto;
 import com.develhope.spring.features.saleOrder.entities.SaleOrderEntity;
 import com.develhope.spring.features.user.entities.UserEntity;
 import com.develhope.spring.features.vehicleForSale.entities.VehicleForSaleEntity;
@@ -28,7 +29,7 @@ public class SaleOrderModel {
     private VehicleForSaleEntity vehicle;
     private UserEntity customer;
     private UserEntity seller;
-    
+
     public static SaleOrderModel convertEntityToModel(SaleOrderEntity entity) {
         return SaleOrderModel.builder()
                 .id(entity.getId())
@@ -39,6 +40,19 @@ public class SaleOrderModel {
                 .vehicle(entity.getVehicle())
                 .customer(entity.getCustomer())
                 .seller(entity.getSeller())
+                .build();
+    }
+
+    public static SaleOrderResponseDto convertModelToResponse(SaleOrderModel model) {
+        return SaleOrderResponseDto.builder()
+                .id(model.getId())
+                .date(model.getDate())
+                .totalPrice(model.getTotalPrice())
+                .downPayment(model.getDownPayment())
+                .statusPayment(model.getStatusPayment())
+                .vehicle(model.getVehicle())
+                .customer(model.getCustomer())
+                .seller(model.getSeller())
                 .build();
     }
 

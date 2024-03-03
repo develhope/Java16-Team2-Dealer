@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
                         .requestMatchers(POST,"/api/v1/vehiclesForSale/**").hasAuthority(Role.ADMIN.name())
                         .requestMatchers(GET,"/api/v1/vehiclesForSale/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
+                        .requestMatchers("/api/v1/saleOrders/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name()) //CAMBIARE è SOLO PER PROVA
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
