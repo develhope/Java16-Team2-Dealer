@@ -1,18 +1,25 @@
 package com.develhope.spring.features.vehicle.forSale.controllers;
 
 import com.develhope.spring.features.user.dto.UserResponseDto;
+import com.develhope.spring.features.vehicle.forSale.StatusSale;
+import com.develhope.spring.features.vehicle.forSale.dto.StatusSaleDto;
+import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleErrorDto;
 import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleRequestDto;
 import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleResponseDto;
+import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
 import com.develhope.spring.features.vehicle.forSale.service.VehicleForSaleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +38,7 @@ public class VehicleForSaleController {
 
     }
 
+    //TODO MOSTRARE SOLO QUELLI DISPONIBILI E FARE ALTRE ROTTE PER ADMIN CHE VEDA TUTTI GLI STATI
     @Operation(summary = "Get all vehicles for sale")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Get the list of all vehicles for sale",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VehicleForSaleResponseDto.class))})})
@@ -39,6 +47,17 @@ public class VehicleForSaleController {
         return ResponseEntity.ok(vehicleForSaleService.getAll());
     }
 
+    @GetMapping("/status")
+    public ResponseEntity<?> getByStatus(@RequestBody StatusSaleDto status) {
 
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByStatus(status);
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+
+    }
 
 }

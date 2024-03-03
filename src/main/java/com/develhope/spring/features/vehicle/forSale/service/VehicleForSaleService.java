@@ -1,10 +1,14 @@
 package com.develhope.spring.features.vehicle.forSale.service;
 
+import com.develhope.spring.features.vehicle.forSale.StatusSale;
+import com.develhope.spring.features.vehicle.forSale.dto.StatusSaleDto;
+import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleErrorDto;
 import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleRequestDto;
 import com.develhope.spring.features.vehicle.forSale.dto.VehicleForSaleResponseDto;
 import com.develhope.spring.features.vehicle.forSale.entities.VehicleForSaleEntity;
 import com.develhope.spring.features.vehicle.forSale.model.VehicleForSaleModel;
 import com.develhope.spring.features.vehicle.forSale.repository.VehicleForSaleRepository;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,6 +38,18 @@ public class VehicleForSaleService {
         List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(vehicles);
         List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
         return dto;
+    }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByStatus(StatusSaleDto status) {
+
+        List<VehicleForSaleEntity> entities = vehicleForSaleRepository.findByStatus(status.getStatus());
+        if(!entities.isEmpty()) {
+            List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(entities);
+            List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+            return Either.right(dto);
+        } else {
+           return Either.left(new VehicleForSaleErrorDto(404, "Vehicles with status" + status.getStatus().name() + "not found"));
+        }
 
     }
 }
