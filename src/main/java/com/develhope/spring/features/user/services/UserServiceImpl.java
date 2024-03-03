@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+
 
     @Override
     public UserDetailsService userDetailsService() {
@@ -41,13 +46,13 @@ public class UserServiceImpl implements UserService{
         UserEntity newUserEntity = UserModel.convertModelToEntity(newUserModel);
 
         if(checkAuthorityLevel(userLogged, newUserEntity)) {
+            newUserEntity.setPassword(pwEncoder.encode(newUserEntity.getPassword()));
             UserEntity savedUser = userRepository.saveAndFlush(newUserEntity);
             UserModel savedUserModel = UserModel.convertEntityToModel(savedUser);
             return Either.right(UserModel.convertModelToResponse(savedUserModel)) ;
         } else {
             return Either.left(new UserErrorDto(403, "You don't have the permission to create this user"));
         }
-
     }
 
     public Either<UserErrorDto, List<UserResponseDto>> getAllByRole(UserEntity userLogged, RoleDto roleDto) {
@@ -60,9 +65,6 @@ public class UserServiceImpl implements UserService{
         } else {
             return Either.left(new UserErrorDto(403, "You don't have the permission to get these users"));
         }
-
-
-
     }
 
    public Either<UserErrorDto, Boolean> deleteUser(Long userToDeleteId, UserEntity userLogged) {
@@ -92,8 +94,6 @@ public class UserServiceImpl implements UserService{
    private boolean checkAuthorityLevel(UserEntity loggedUser, UserEntity userToModify) {
         return ( (!loggedUser.getRole().equals(Role.CUSTOMER)) && (loggedUser.getRole().authorityLevel >= userToModify.getRole().authorityLevel));
    }
-
-
 
     private boolean checkAuthorityLevel(UserEntity loggedUser, Role role) {
         return ( (!loggedUser.getRole().equals(Role.CUSTOMER) ) && (loggedUser.getRole().authorityLevel >= role.authorityLevel)) ;
