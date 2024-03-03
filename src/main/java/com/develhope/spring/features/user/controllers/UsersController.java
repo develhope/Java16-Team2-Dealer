@@ -90,13 +90,9 @@ public class UsersController {
 
     }
 
-
-
-
-//TODO IMPLEMENTARE IN MANIERA GENERICA CON CONTROLLO GERARCHIA
-
+    //TESTATO
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteAdmin(
+    public ResponseEntity<?> deleteUser(
             @Parameter(description = "id of the user to be deleted")
             @PathVariable("id") Long userToDeleteId,
             @AuthenticationPrincipal UserEntity userLogged) {

@@ -1,6 +1,7 @@
 package com.develhope.spring.features.vehicle.forSale.entities;
 
 import com.develhope.spring.features.vehicle.entities.VehicleEntity;
+import com.develhope.spring.features.vehicle.forSale.StatusSale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,9 @@ public class VehicleForSaleEntity extends VehicleEntity {
     private String optionals;
 
     private Boolean isNew;
+
+    @Enumerated(EnumType.STRING)
+    private StatusSale status;
 
 
 }
