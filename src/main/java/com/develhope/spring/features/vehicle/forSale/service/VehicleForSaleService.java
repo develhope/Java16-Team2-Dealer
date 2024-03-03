@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class VehicleForSaleService {
@@ -23,6 +25,15 @@ public class VehicleForSaleService {
         VehicleForSaleModel modelResponse = VehicleForSaleModel.convertEntityToModel(savedEntity);
         VehicleForSaleResponseDto response = VehicleForSaleModel.convertModelToResponse(modelResponse);
         return response;
+
+    }
+
+    public List<VehicleForSaleResponseDto> getAll() {
+
+        List<VehicleForSaleEntity> vehicles = vehicleForSaleRepository.findAll();
+        List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(vehicles);
+        List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+        return dto;
 
     }
 }

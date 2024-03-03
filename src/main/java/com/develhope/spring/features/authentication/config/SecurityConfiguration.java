@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -39,7 +41,8 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**").permitAll()
 //
                         .requestMatchers("/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
-                        .requestMatchers("/api/v1/vehiclesForSale/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(POST,"/api/v1/vehiclesForSale/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(GET,"/api/v1/vehiclesForSale/**").hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name(), Role.CUSTOMER.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

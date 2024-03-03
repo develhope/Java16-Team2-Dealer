@@ -5,10 +5,7 @@ import com.develhope.spring.features.vehicle.forSale.service.VehicleForSaleServi
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +19,11 @@ public class VehicleForSaleController {
 
         return  ResponseEntity.status(HttpStatus.CREATED).body(vehicleForSaleService.addVehicleForSale(dto));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(vehicleForSaleService.getAll());
     }
 
 
