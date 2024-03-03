@@ -21,4 +21,6 @@ public interface UserService {
     Either<UserErrorDto, UserResponseDto> createUser(UserRequestDto newUser, UserEntity userLogged);
 
     Either<UserErrorDto, Boolean> deleteUser(Long userToDeleteId, UserEntity userLogged);
+
+    Either<UserErrorDto, UserResponseDto> getUserById(Long id, UserEntity userLogged);
 }

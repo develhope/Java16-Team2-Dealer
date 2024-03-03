@@ -10,6 +10,7 @@ import com.develhope.spring.features.user.model.UserModel;
 import com.develhope.spring.features.user.repository.UserRepository;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService{
         };
     }
 
+    @Override
     public Either<UserErrorDto, UserResponseDto> createUser(UserRequestDto newUser, UserEntity userLogged) {
 
         UserModel newUserModel = UserModel.convertRequestToModel(newUser);
@@ -55,6 +57,7 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
     public Either<UserErrorDto, List<UserResponseDto>> getAllByRole(UserEntity userLogged, RoleDto roleDto) {
 
         if(checkAuthorityLevel(userLogged, roleDto.getRole())) {
@@ -67,6 +70,7 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
    public Either<UserErrorDto, Boolean> deleteUser(Long userToDeleteId, UserEntity userLogged) {
        Optional<UserEntity> userToDeleteOpt = userRepository.findById(userToDeleteId);
 
@@ -90,8 +94,26 @@ public class UserServiceImpl implements UserService{
    }
 
 
+    @Override
+    public Either<UserErrorDto, UserResponseDto> getUserById(Long id, UserEntity userLogged) {
+        Optional<UserEntity> userSearchedOpt = userRepository.findById(id);
 
-   private boolean checkAuthorityLevel(UserEntity loggedUser, UserEntity userToModify) {
+        if(userSearchedOpt.isPresent()) {
+            UserEntity userSearched = userSearchedOpt.get();
+            if(checkAuthorityLevel(userLogged, userSearched)) {
+                UserModel model = UserModel.convertEntityToModel(userSearched);
+                UserResponseDto response = UserModel.convertModelToResponse(model);
+                return Either.right(response);
+            } else {
+                return Either.left(new UserErrorDto(403, "You don't have the permission to search this user"));
+            }
+        } else{
+            return Either.left(new UserErrorDto(404, "User searched not found"));
+        }
+    }
+
+
+    private boolean checkAuthorityLevel(UserEntity loggedUser, UserEntity userToModify) {
         return ( (!loggedUser.getRole().equals(Role.CUSTOMER)) && (loggedUser.getRole().authorityLevel >= userToModify.getRole().authorityLevel));
    }
 

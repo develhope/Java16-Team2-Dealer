@@ -56,14 +56,22 @@ public class UsersController {
         return ResponseEntity.ok(dto);
     }
 
-    @Operation(summary = "Returns data about the logged user")
+    //TESTATO
+    @Operation(summary = "Returns data about the specified user by id")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "user data", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDto.class))}),
-                             @ApiResponse(responseCode = "403", description = "You don't have the permission to get these users")})
+                             @ApiResponse(responseCode = "403", description = "You don't have the permission to get these users"),
+                            @ApiResponse(responseCode = "404", description = "User searched not found")})
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@AuthenticationPrincipal UserEntity user, @PathVariable Long id) {
-        UserModel model = UserModel.convertEntityToModel(user);
-        UserResponseDto dto = UserModel.convertModelToResponse(model);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<?> getUserById(@AuthenticationPrincipal UserEntity userLogged,
+                                                       @Parameter(description = "id of the user to be searched")
+                                                       @PathVariable("id") Long id) {
+
+        Either<UserErrorDto, UserResponseDto> result = userService.getUserById(id, userLogged);
+        if (result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
     }
 
     //TESTATO
@@ -89,8 +97,8 @@ public class UsersController {
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteAdmin(
-            @Parameter(description = "id of the admin to be deleted")
-            @PathVariable("adminId") Long userToDeleteId,
+            @Parameter(description = "id of the user to be deleted")
+            @PathVariable("id") Long userToDeleteId,
             @AuthenticationPrincipal UserEntity userLogged) {
 
         Either<UserErrorDto,Boolean> result = userService.deleteUser(userToDeleteId, userLogged);
