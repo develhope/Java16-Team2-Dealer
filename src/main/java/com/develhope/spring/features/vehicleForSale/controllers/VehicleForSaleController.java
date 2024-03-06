@@ -79,6 +79,22 @@ public class VehicleForSaleController {
         }
     }
 
+    @Operation(summary = "Get all ORDERABLE and READY FOR SALE vehicles between a given range ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully found orderable/sellable vehicles between a given range"),
+            @ApiResponse(responseCode = "404", description = "Vehicles not found")
+    })
+    @GetMapping("/available")
+    public ResponseEntity<?> getByPricesAndStatus(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByPricesAndStatus(minPrice, maxPrice);
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+    }
+
     @Operation(summary = "Get all vehicles by brand name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully found vehicles with brand name"),

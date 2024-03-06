@@ -1,5 +1,6 @@
 package com.develhope.spring.features.vehicleForSale.service;
 
+import com.develhope.spring.features.vehicleForSale.StatusSale;
 import com.develhope.spring.features.vehicleForSale.dto.StatusSaleDto;
 import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleErrorDto;
 import com.develhope.spring.features.vehicleForSale.dto.VehicleForSaleRequestDto;
@@ -12,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +65,20 @@ public class VehicleForSaleService {
             return Either.right(dto);
         } else {
             return Either.left(new VehicleForSaleErrorDto(404, "No vehicles found with price between " + minPrice + " and " + maxPrice));
+        }
+    }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByPricesAndStatus(BigDecimal minPrice, BigDecimal maxPrice) {
+
+        Set<StatusSale> statuses = new HashSet<>(Arrays.asList(StatusSale.READY_FOR_SALE, StatusSale.ORDERABLE));
+
+        List<VehicleForSaleEntity> entities = vehicleForSaleRepository.findByListPriceBetweenAndStatus(minPrice, maxPrice, statuses);
+        if(!entities.isEmpty()) {
+            List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(entities);
+            List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+            return Either.right(dto);
+        } else {
+            return Either.left(new VehicleForSaleErrorDto(404, "No available vehicles found with price between " + minPrice + " and " + maxPrice));
         }
     }
 
