@@ -27,6 +27,7 @@ public class VehicleForSaleEntity extends VehicleEntity {
 
     private BigDecimal listPrice;
 
+    @Column(columnDefinition = "double default 0.0")
     private Double discountPercentage;
 
     private String optionals;

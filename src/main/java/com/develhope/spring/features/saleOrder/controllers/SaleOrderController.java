@@ -22,10 +22,10 @@ public class SaleOrderController {
 
     private final SaleOrderService saleOrderService;
 
-   @PostMapping("/{vehicleId}")
-    ResponseEntity<?> bookVehicle(@AuthenticationPrincipal UserEntity customer,
+   @PostMapping("/book/{vehicleId}")
+    ResponseEntity<?> bookVehicleByCustomer(@AuthenticationPrincipal UserEntity customer,
                                   @PathVariable Long vehicleId) {
-       Either<SaleOrderError, SaleOrderResponseDto> result = saleOrderService.bookVehicle(customer, vehicleId);
+       Either<SaleOrderError, SaleOrderResponseDto> result = saleOrderService.bookVehicleByCustomer(customer, vehicleId);
        if(result.isLeft()) {
            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
        } else {

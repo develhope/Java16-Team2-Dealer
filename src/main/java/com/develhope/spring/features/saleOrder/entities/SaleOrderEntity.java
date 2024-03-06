@@ -47,7 +47,7 @@ public class SaleOrderEntity {
     private UserEntity customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id", nullable = false)
+    @JoinColumn(name = "seller_id", nullable = true)
     private UserEntity seller;
 
 
