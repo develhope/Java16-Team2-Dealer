@@ -2,6 +2,7 @@ package com.develhope.spring.features.saleOrder.service;
 
 import com.develhope.spring.features.saleOrder.StatusPayment;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderError;
+import com.develhope.spring.features.saleOrder.dto.SaleOrderRequestDto;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderResponseDto;
 import com.develhope.spring.features.saleOrder.entities.SaleOrderEntity;
 import com.develhope.spring.features.saleOrder.model.SaleOrderModel;
@@ -65,6 +66,16 @@ public class SaleOrderService {
 
         } else {
            return Either.left(new SaleOrderError(404, "Vehicle not found"));
+        }
+
+    }
+
+    public Either<SaleOrderError, SaleOrderResponseDto> createOrder(UserEntity seller, SaleOrderRequestDto dto) {
+
+        if(seller.getRole().equals(Role.SELLER) || seller.getRole().equals(Role.ADMIN)) {
+
+        } else {
+            return Either.left(new SaleOrderError(403, "User not authorized to book a vehicle"));
         }
 
     }
