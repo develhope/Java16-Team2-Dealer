@@ -95,7 +95,7 @@ public class VehicleForSaleController {
         }
     }
 
-    @Operation(summary = "Get all vehicles by brand name")
+    @Operation(summary = "Get all vehicles by model name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully found vehicles with model name"),
             @ApiResponse(responseCode = "404", description = "Vehicles of certain model not found")
