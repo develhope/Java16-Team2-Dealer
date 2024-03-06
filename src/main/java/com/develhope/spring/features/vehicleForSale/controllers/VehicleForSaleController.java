@@ -45,6 +45,11 @@ public class VehicleForSaleController {
         return ResponseEntity.ok(vehicleForSaleService.getAll());
     }
 
+    @Operation(summary = "Get all vehicles by status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully get vehicle by specific status"),
+            @ApiResponse(responseCode = "404", description = "Vehicles not found")
+    })
     @GetMapping("/status")
     public ResponseEntity<?> getByStatus(@RequestBody StatusSaleDto status) {
 
@@ -58,6 +63,11 @@ public class VehicleForSaleController {
 
     }
 
+    @Operation(summary = "Get all vehicles between a given range")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully found vehicles between a given range"),
+            @ApiResponse(responseCode = "404", description = "Vehicles not found")
+    })
     @GetMapping("/prices")
     public ResponseEntity<?> getByPrices(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByPrices(minPrice, maxPrice);
