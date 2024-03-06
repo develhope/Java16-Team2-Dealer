@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -55,6 +56,17 @@ public class VehicleForSaleController {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
         }
 
+    }
+
+    @GetMapping("/prices")
+    public ResponseEntity<?> getByPrices(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByPrices(minPrice, maxPrice);
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
     }
 
 }

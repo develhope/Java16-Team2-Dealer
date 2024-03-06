@@ -11,6 +11,7 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -49,5 +50,17 @@ public class VehicleForSaleService {
            return Either.left(new VehicleForSaleErrorDto(404, "Vehicles with status" + status.getStatus().name() + "not found"));
         }
 
+    }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByPrices(BigDecimal minPrice, BigDecimal maxPrice) {
+
+        List<VehicleForSaleEntity> entities = vehicleForSaleRepository.findByListPriceBetween(minPrice, maxPrice);
+        if(!entities.isEmpty()) {
+            List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(entities);
+            List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+            return Either.right(dto);
+        } else {
+            return Either.left(new VehicleForSaleErrorDto(404, "No vehicles found with price between " + minPrice + " and " + maxPrice));
+        }
     }
 }
