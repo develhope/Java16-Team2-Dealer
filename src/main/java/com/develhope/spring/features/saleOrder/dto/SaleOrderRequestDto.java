@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 public class SaleOrderRequestDto {
 
     private BigDecimal downPayment;
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPayment statusPayment;
     private Long vehicleId;

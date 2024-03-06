@@ -32,8 +32,13 @@ public class SaleOrderController {
    }
 
    @PostMapping("/createOrder")
-    ResponseEntity<?> createOrder(@AuthenticationPrincipal UserEntity seller, @RequestBody SaleOrderRequestDto dto) {
-       Either<SaleOrderError, SaleOrderResponseDto> result = saleOrderService.createOrder(seller, dto);
+    ResponseEntity<?> createOrder(@AuthenticationPrincipal UserEntity seller, @RequestBody SaleOrderRequestDto requestDto) {
+       Either<SaleOrderError, SaleOrderResponseDto> result = saleOrderService.bookOrder(seller, requestDto);
+       if(result.isLeft()) {
+           return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+       } else {
+           return ResponseEntity.status(HttpStatus.CREATED).body(result.get());
+       }
    }
 
 }
