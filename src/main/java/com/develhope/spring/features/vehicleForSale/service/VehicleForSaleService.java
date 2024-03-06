@@ -63,4 +63,30 @@ public class VehicleForSaleService {
             return Either.left(new VehicleForSaleErrorDto(404, "No vehicles found with price between " + minPrice + " and " + maxPrice));
         }
     }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByBrand(String brand) {
+
+        List<VehicleForSaleEntity> entities = vehicleForSaleRepository.findByBrand(brand);
+        if(!entities.isEmpty()) {
+            List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(entities);
+            List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+            return Either.right(dto);
+        } else {
+            return Either.left(new VehicleForSaleErrorDto(404,  brand + " vehicles not found"));
+        }
+
+    }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByModel(String model) {
+
+        List<VehicleForSaleEntity> entities = vehicleForSaleRepository.findByModel(model);
+        if(!entities.isEmpty()) {
+            List<VehicleForSaleModel> models = VehicleForSaleModel.convertEntityListToModelList(entities);
+            List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
+            return Either.right(dto);
+        } else {
+            return Either.left(new VehicleForSaleErrorDto(404,  "Model "+ model +" vehicles not found"));
+        }
+
+    }
 }

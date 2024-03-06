@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public interface VehicleForSaleRepository extends JpaRepository<VehicleForSaleEntity, Long> {
 
-    public List<VehicleForSaleEntity> findByStatus(StatusSale status);
+    List<VehicleForSaleEntity> findByStatus(StatusSale status);
 
     List<VehicleForSaleEntity> findByListPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+
+    List<VehicleForSaleEntity> findByBrand(String brand);
+
+    List<VehicleForSaleEntity> findByModel(String model);
 
 }

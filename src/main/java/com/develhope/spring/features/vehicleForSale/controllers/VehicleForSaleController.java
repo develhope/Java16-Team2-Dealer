@@ -79,4 +79,36 @@ public class VehicleForSaleController {
         }
     }
 
+    @Operation(summary = "Get all vehicles by brand name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully found vehicles with brand name"),
+            @ApiResponse(responseCode = "404", description = "Vehicles of certain brand not found")
+    })
+    @GetMapping("/brand")
+    public ResponseEntity<?> getByBrand(@RequestParam String brand) {
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByBrand(brand);
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+    }
+
+    @Operation(summary = "Get all vehicles by brand name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully found vehicles with model name"),
+            @ApiResponse(responseCode = "404", description = "Vehicles of certain model not found")
+    })
+    @GetMapping("/model")
+    public ResponseEntity<?> getByModel(@RequestParam String model) {
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByModel(model);
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+    }
+
 }
