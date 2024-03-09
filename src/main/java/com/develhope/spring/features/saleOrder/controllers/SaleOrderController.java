@@ -3,8 +3,10 @@ package com.develhope.spring.features.saleOrder.controllers;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderError;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderRequestDto;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderResponseDto;
+import com.develhope.spring.features.saleOrder.dto.SaleOrderUpdateDto;
 import com.develhope.spring.features.saleOrder.entities.SaleOrderEntity;
 import com.develhope.spring.features.saleOrder.service.SaleOrderService;
+import com.develhope.spring.features.user.entities.Role;
 import com.develhope.spring.features.user.entities.UserEntity;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,16 @@ public class SaleOrderController {
            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
        } else {
            return ResponseEntity.status(HttpStatus.CREATED).body(result.get());
+       }
+   }
+
+   @PatchMapping("/updateStatus")
+    ResponseEntity<?> updateStatus(@AuthenticationPrincipal UserEntity seller, @RequestBody SaleOrderUpdateDto updateDto) {
+       Either<SaleOrderError, SaleOrderResponseDto> result = saleOrderService.updateStatus(seller, updateDto);
+       if(result.isLeft()) {
+           return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+       } else {
+           return ResponseEntity.status(HttpStatus.OK).body(result.get());
        }
    }
 

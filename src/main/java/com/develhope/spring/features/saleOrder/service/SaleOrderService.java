@@ -4,6 +4,7 @@ import com.develhope.spring.features.saleOrder.StatusPayment;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderError;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderRequestDto;
 import com.develhope.spring.features.saleOrder.dto.SaleOrderResponseDto;
+import com.develhope.spring.features.saleOrder.dto.SaleOrderUpdateDto;
 import com.develhope.spring.features.saleOrder.entities.SaleOrderEntity;
 import com.develhope.spring.features.saleOrder.model.SaleOrderModel;
 import com.develhope.spring.features.saleOrder.repository.SaleOrderRepository;
@@ -110,6 +111,32 @@ public class SaleOrderService {
             }
         } else {
             return Either.left(new SaleOrderError(404, "Customer not found"));
+        }
+    }
+
+    public Either<SaleOrderError, SaleOrderResponseDto> updateStatus(UserEntity seller, SaleOrderUpdateDto updateDto) {
+        if (seller.getRole().equals(Role.CUSTOMER)) {
+            return Either.left(new SaleOrderError(403, "User not authorized"));
+        }
+        Optional<SaleOrderEntity> saleOrderOpt = saleOrderRepository.findById(updateDto.getId());
+        if (saleOrderOpt.isPresent()) {
+            SaleOrderEntity saleOrder = saleOrderOpt.get();
+            saleOrder.setStatusPayment(updateDto.getStatus());
+
+            SaleOrderEntity savedOrder = saleOrderRepository.saveAndFlush(saleOrder);
+
+
+            Optional<VehicleForSaleEntity> vehicleOpt = vehicleForSaleRepository.findById(saleOrder.getVehicle().getId());
+            VehicleForSaleEntity vehicle = vehicleOpt.get();
+            if (updateDto.getStatus().equals(StatusPayment.SETTLED)) {
+                vehicle.setStatus(StatusSale.SOLD);
+                vehicleForSaleRepository.saveAndFlush(vehicle);
+            }
+            SaleOrderModel model = SaleOrderModel.convertEntityToModel(savedOrder);
+            SaleOrderResponseDto response = SaleOrderModel.convertModelToResponse(model);
+            return Either.right(response);
+        } else {
+            return Either.left(new SaleOrderError(404,"Order not found"));
         }
     }
 }
