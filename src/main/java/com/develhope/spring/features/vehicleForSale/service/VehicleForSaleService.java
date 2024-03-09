@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +39,35 @@ public class VehicleForSaleService {
         List<VehicleForSaleResponseDto> dto = VehicleForSaleModel.convertModelListToResponseList(models);
         return dto;
     }
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getAllReadyForSale() {
+
+        List<VehicleForSaleEntity> readyForSaleEntity = vehicleForSaleRepository.findByStatus(StatusSale.READY_FOR_SALE);
+
+        if(readyForSaleEntity.isEmpty()) {
+            return Either.left(new VehicleForSaleErrorDto(404, "No vehicles ready for sale found"));
+        } else {
+            List<VehicleForSaleModel> model = VehicleForSaleModel.convertEntityListToModelList(readyForSaleEntity);
+            List<VehicleForSaleResponseDto> response = VehicleForSaleModel.convertModelListToResponseList(model);
+            return Either.right(response);
+        }
+
+    }
+
+
+    public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getAllOrderable() {
+
+        List<VehicleForSaleEntity> readyForSaleEntity = vehicleForSaleRepository.findByStatus(StatusSale.ORDERABLE);
+
+        if(readyForSaleEntity.isEmpty()) {
+            return Either.left(new VehicleForSaleErrorDto(404, "No vehicles ready for sale found"));
+        } else {
+            List<VehicleForSaleModel> model = VehicleForSaleModel.convertEntityListToModelList(readyForSaleEntity);
+            List<VehicleForSaleResponseDto> response = VehicleForSaleModel.convertModelListToResponseList(model);
+            return Either.right(response);
+        }
+    }
+
 
     public Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> getByStatus(StatusSaleDto status) {
 
@@ -107,4 +133,6 @@ public class VehicleForSaleService {
         }
 
     }
+
+
 }

@@ -32,9 +32,44 @@ public class VehicleForSaleController {
     @PostMapping("/vehicle")
     public ResponseEntity<?> addVehicleForSale(@RequestBody VehicleForSaleRequestDto dto) {
 
-        return  ResponseEntity.status(HttpStatus.CREATED).body(vehicleForSaleService.addVehicleForSale(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(vehicleForSaleService.addVehicleForSale(dto));
 
     }
+
+    @Operation(summary = "Get all vehicles ready for sale")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Get the list of all vehicles ready for sale",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VehicleForSaleResponseDto.class))})})
+    @GetMapping("/readyForSale")
+    public ResponseEntity<?> getAllReadyForSale() {
+
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getAllReadyForSale();
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+
+    }
+
+    @Operation(summary = "Get all orderable vehicles")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Get the list of all orderable vehicles",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VehicleForSaleResponseDto.class))})})
+    @GetMapping("/orderable")
+    public ResponseEntity<?> getAllOrderable() {
+
+        Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getAllOrderable();
+
+        if(result.isLeft()) {
+            return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(result.get());
+        }
+
+    }
+
+
+
 
     //TODO MOSTRARE SOLO QUELLI DISPONIBILI E FARE ALTRE ROTTE PER ADMIN CHE VEDA TUTTI GLI STATI
     @Operation(summary = "Get all vehicles for sale")
@@ -55,7 +90,7 @@ public class VehicleForSaleController {
 
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByStatus(status);
 
-        if(result.isLeft()) {
+        if (result.isLeft()) {
             return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
@@ -72,7 +107,7 @@ public class VehicleForSaleController {
     public ResponseEntity<?> getByPrices(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByPrices(minPrice, maxPrice);
 
-        if(result.isLeft()) {
+        if (result.isLeft()) {
             return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
@@ -88,7 +123,7 @@ public class VehicleForSaleController {
     public ResponseEntity<?> getByPricesAndStatus(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByPricesAndStatus(minPrice, maxPrice);
 
-        if(result.isLeft()) {
+        if (result.isLeft()) {
             return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
@@ -104,7 +139,7 @@ public class VehicleForSaleController {
     public ResponseEntity<?> getByBrand(@RequestParam String brand) {
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByBrand(brand);
 
-        if(result.isLeft()) {
+        if (result.isLeft()) {
             return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
@@ -120,7 +155,7 @@ public class VehicleForSaleController {
     public ResponseEntity<?> getByModel(@RequestParam String model) {
         Either<VehicleForSaleErrorDto, List<VehicleForSaleResponseDto>> result = vehicleForSaleService.getByModel(model);
 
-        if(result.isLeft()) {
+        if (result.isLeft()) {
             return ResponseEntity.status(result.getLeft().getCode()).body(result.getLeft().getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result.get());
